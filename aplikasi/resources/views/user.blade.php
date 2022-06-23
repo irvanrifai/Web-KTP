@@ -5,7 +5,7 @@
 <div class="row mt-4">
     <div class="col">
         <h3>Data Penduduk</h3>
-            <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#rentang_i">
+            <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#export_d">
                 Export data
             </button>
         <div class="table-responsive">
@@ -13,7 +13,6 @@
                 <thead>
                     <tr>
                         <th scope="col">No</th>
-                        <th scope="col">Foto</th>
                         <th scope="col">NIK</th>
                         <th scope="col">Nama</th>
                         <th scope="col">Tempat/Tgl Lahir</th>
@@ -26,21 +25,11 @@
                     <?php foreach ($aset as $a_bem) : ?>
                         <tr>
                             <td scope="row"><?= $i++; ?></td>
-                            <th><img src="/img/<?= $a_bem['gambar']; ?>" class="gambar"></th>
                             <td><?= $a_bem['id_inventaris']; ?></td>
                             <td><?= $a_bem['nama_aset']; ?></td>
                             <td><?= $a_bem['jumlah_kapasitas']; ?></td>
                             <td><?= $a_bem['status']; ?></td>
                             <td><?= $a_bem['kondisi']; ?></td>
-                            <td><?= ($a_bem['cb_nb'] == '1') ? 'Bisa' : 'Tidak'; ?></td>
-                            <td class="btn-inline">
-                                <button type="button" class="bi bi-pencil-square btn btn-warning inline tooltip-test" title="Edit data" data-bs-toggle="modal" data-bs-target="#edit<?= $a_bem['nomor']; ?>">
-
-                                </button>
-                                <button type="button" class="bi bi-trash btn btn-danger inline tooltip-test" title="Hapus data" data-bs-toggle="modal" data-bs-target="#hapus<?= $a_bem['nomor']; ?>">
-
-                                </button>
-                            </td>
                         </tr>
                     <?php endforeach; ?> --}}
                 </tbody>
@@ -48,5 +37,69 @@
         </div>
     </div>
 </div>
+
+<!-- modal untuk menampilkan data yang ditentukan (with export to pdf/csv) -->
+<div class="modal fade" id="export_d" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Data Penduduk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="print-area" id="laporan_cetak_i">
+                <div class="modal-body">
+                    <div class="row table-responsive">
+                        <div class="col">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">NIK</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Tempat/Tgl Lahir</th>
+                                        <th scope="col">Jenis kelamin</th>
+                                        <th scope="col">Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- <?php $i = 1; ?>
+                                    <?php foreach ($aset as $a_bem) : ?>
+                                        <tr>
+                                            <td scope="row"><?= $i++; ?></td>
+                                            <td><?= $a_bem['id_inventaris']; ?></td>
+                                            <td><?= $a_bem['nama_aset']; ?></td>
+                                            <td><?= $a_bem['jumlah_kapasitas']; ?></td>
+                                            <td><?= $a_bem['status']; ?></td>
+                                            <td><?= $a_bem['kondisi']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?> --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="bi bi-printer btn btn-danger no-print" href="javascript:printDiv('laporan_cetak_i');"> Export to pdf</a>
+                <a class="bi bi-printer btn btn-success no-print" href="javascript:printDiv('laporan_cetak_i');"> Export to csv</a>
+                <!-- <button class="bi bi-arrow-left-square btn btn-primary" data-bs-target="#rentang" data-bs-toggle="modal"> Kembali</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- script buat print halaman ajuan tertentu -->
+<textarea id="printing-css" style="display:none;">.no-print{display: none}</textarea>
+<iframe id="printing-frame" name="print_frame" src="about:blank" style="display:none;"></iframe>
+<script type="text/javascript">
+    function printDiv(elementId) {
+        var a = document.getElementById('printing-css').value;
+        var b = document.getElementById(elementId).innerHTML;
+        window.frames["print_frame"].document.title = document.title;
+        window.frames["print_frame"].document.body.innerHTML = '<style>' + a + '</style>' + b;
+        window.frames["print_frame"].window.focus();
+        window.frames["print_frame"].window.print();
+    }
+</script>
 
 @endsection
