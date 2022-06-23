@@ -12,7 +12,10 @@
       <input type="password" class="form-control" id="password">
     </div>
 </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    {{-- <button type="submit" class="btn btn-primary">Login</button> --}}
+    Sementara
+    <a type="button" class="btn btn-primary" href="/admin">Login a</a>
+    <a type="button" class="btn btn-primary" href="/user">Login u</a>
   </form>
 
 @endsection
