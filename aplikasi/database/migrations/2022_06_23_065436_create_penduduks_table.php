@@ -14,28 +14,25 @@ class CreatePenduduksTable extends Migration
     public function up()
     {
         Schema::create('penduduks', function (Blueprint $table) {
-            $table->id()->index();
-            $table->char('foto');
-            $table->integer('NIK', 16)->unique();
-            $table->text('nama', 255);
-            $table->char('tm_lahir', 150);
+            $table->id();
+            $table->string('foto', 255);
+            $table->bigInteger('NIK');
+            $table->string('nama', 255);
+            $table->string('tm_lahir', 150);
             $table->date('tgl_lahir');
-            $table->text('jk', 25);
-            $table->text('agama', 30);
-            $table->text('status', 50);
-            $table->text('goldar', 4);
-            $table->text('pekerjaan', 50);
-            $table->text('wn', 30);
-            $table->text('provinsi', 150);
-            $table->text('kab', 150);
-            $table->text('kec', 150);
-            $table->text('kel', 150);
-            $table->text('rt', 150);
-            $table->text('rw', 150);
-            $table->text('add', 255);
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
-            $table->timestamp('deleted_at')->nullable();
+            $table->string('jk', 25);
+            $table->string('agama', 30);
+            $table->string('status', 50);
+            $table->string('goldar', 4);
+            $table->string('pekerjaan', 50);
+            $table->string('wn', 30);
+            $table->string('provinsi', 150);
+            $table->string('kab', 150);
+            $table->string('kec', 150);
+            $table->string('kel', 150);
+            $table->string('rt', 150);
+            $table->string('rw', 150);
+            $table->string('add', 255);
             $table->timestamps();
         });
     }
