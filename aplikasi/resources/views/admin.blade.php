@@ -236,7 +236,6 @@
                                 
                                   
                             </div>
-                            <button type="submit" class="btn btn-primary">Tambah</button>
                           </form>
                     </div>
                 </div>
@@ -250,15 +249,14 @@
 </div>
 
 <!-- modal untuk edit data -->
-<?php foreach ($aset as $a_bem) : ?>
-    <div class="modal fade" id="edit<?php echo $a_bem['nomor']; ?>" tabindex="-1" role="dialog" aria-labelledby="editLabel">
+    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editLabel">Edit data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/admin/adm_bem/update/<?= $a_bem['nomor']; ?>" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
+                <form action="/admin/adm_bem/update/" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="kepemilikan" id="kepemilikan" value="BEM FKI UMS">
                     <div class="modal-body">
@@ -404,7 +402,6 @@
                                     
                                       
                                 </div>
-                                <button type="submit" class="btn btn-primary">Tambah</button>
                               </form>
                         </div>
                     </div>
@@ -417,11 +414,10 @@
         </div>
     </div>
     </div>
-<?php endforeach; ?>
+
 
 <!-- modal untuk hapus data -->
-<?php foreach ($aset as $a_bem) : ?>
-    <div class="modal fade" id="hapus<?= $a_bem['nomor']; ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -429,22 +425,22 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/adm_bem/delete/<?= $a_bem['nomor']; ?>" method="post" role="form" enctype="multipart/form-data">
+                    <form action="/admin/adm_bem/delete" method="post" role="form" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
                         <div class="modal-body">
                             <div class="mb-3">
                                 <div class="mb-3">
                                     <div class="col-sm-4">
-                                        {{-- <img src="/img/<?= $a_bem['gambar']; ?>" class="img-thumbnail img-preview"> --}}
+                                       
                                     </div>
                                 </div>
                             </div>
                             <div>
-                                {{-- <label for="id_inventaris" class="form-label">NIK : <?= $a_bem['id_inventaris']; ?></label> --}}
+
                             </div>
                             <div class="mb-3">
-                                {{-- <label for="nama_aset" class="form-label">Nama : <?= $a_bem['nama_aset']; ?></label> --}}
-                                {{-- <label for="nama_aset" class="form-label">Alamat : <?= $a_bem['nama_aset']; ?></label> --}}
+                                
+                                
                             </div>
                             <div id="emailHelp" class="form-text">Apakah anda yakin akan menghapus data aset?</div>
                         </div>
@@ -457,7 +453,7 @@
             </div>
         </div>
     </div>
-<?php endforeach; ?>
+{{-- <?php endforeach; ?> --}}
 
 <!-- modal untuk menampilkan data yang ditentukan (with export to pdf/csv) -->
 <div class="modal fade" id="laporan_i" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
@@ -484,18 +480,6 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {{-- <?php $i = 1; ?>
-                                    <?php foreach ($aset as $a_bem) : ?>
-                                        <tr>
-                                            <td scope="row"><?= $i++ ?></td>
-                                            <th><img src="/img/<?= $a_bem['gambar']; ?>" class="gambar"></th>
-                                            <td><?= $a_bem['id_inventaris']; ?></td>
-                                            <td><?= $a_bem['nama_aset']; ?></td>
-                                            <td><?= $a_bem['jumlah_kapasitas']; ?></td>
-                                            <td><?= $a_bem['status']; ?></td>
-                                            <td><?= $a_bem['kondisi']; ?></td>
-                                        </tr>
-                                    <?php endforeach; ?> --}}
                                 </tbody>
                             </table>
                         </div>
