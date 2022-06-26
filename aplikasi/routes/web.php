@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\homeController;
+use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,18 +15,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    // return view('welcome');
-    return view('home', [
-        "title" => "Web E-I KTP | Home"
-    ]);
-});
-
-Route::get('/login', function () {
-    return view('login', [
-        "title" => "Web E-I KTP | Login"
-    ]);
-});
+Route::get('/', [homeController::class, 'index']);
+Route::get('/login', [loginController::class, 'index']);
 
 Route::get('/admin', function () {
     return view('admin', [
@@ -35,17 +27,5 @@ Route::get('/admin', function () {
 Route::get('/user', function () {
     return view('user', [
         "title" => "Web E-I KTP | user"
-    ]);
-});
-
-Route::get('/edit', function () {
-    return view('edit', [
-        "title" => "Web E-I KTP | edit"
-    ]);
-});
-
-Route::get('/tambah', function () {
-    return view('tambah', [
-        "title" => "Web E-I KTP | tambah"
     ]);
 });

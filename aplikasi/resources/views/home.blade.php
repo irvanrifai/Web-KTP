@@ -9,7 +9,7 @@
 
 <ul class="navbar-nav me-auto mb-2 mt-4 mb-lg-0">
     <li class="nav-item">
-        <a type="button" class="nav-link active btn btn-outline-primary" href="/login">Login</a>
+        <a type="button" class="nav-link active btn btn-outline-primary" href="/login"><b style="color: antiquewhite">Login</b></a>
     </li>
 </ul>
 @endsection

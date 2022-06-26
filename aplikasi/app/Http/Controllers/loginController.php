@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\penduduk;
-use App\Http\Requests\StorependudukRequest;
-use App\Http\Requests\UpdatependudukRequest;
+use Illuminate\Http\Request;
 
-class PendudukController extends Controller
+class loginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +13,9 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        return view();
+        return view('login', [
+            "title" => "Web E-I KTP | Login"
+        ]);
     }
 
     /**
@@ -31,10 +31,10 @@ class PendudukController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StorependudukRequest  $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorependudukRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -42,10 +42,10 @@ class PendudukController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\penduduk  $penduduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(penduduk $penduduk)
+    public function show($id)
     {
         //
     }
@@ -53,10 +53,10 @@ class PendudukController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\penduduk  $penduduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(penduduk $penduduk)
+    public function edit($id)
     {
         //
     }
@@ -64,11 +64,11 @@ class PendudukController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdatependudukRequest  $request
-     * @param  \App\Models\penduduk  $penduduk
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatependudukRequest $request, penduduk $penduduk)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -76,10 +76,10 @@ class PendudukController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\penduduk  $penduduk
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(penduduk $penduduk)
+    public function destroy($id)
     {
         //
     }

@@ -58,7 +58,7 @@
             <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#rentang_i">
                 Import
             </button>
-            <a align="right" class="bi bi-printer btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#laporan_i"> Export</a>
+            <a align="right" class="bi bi-printer btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#export_d"> Export</a>
         </div>
         <div class="table-responsive">
             <table id="tb_inv" class="table table-striped">
@@ -100,7 +100,7 @@
                             <div class="col-sm-4">
                                 <img src="/img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
-                            <div class="mt-2 col-md-10">
+                            <div class="mt-2 col-md-4">
                                 <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
                                 <div class="invalid-feedback">
                                 </div>
@@ -222,9 +222,17 @@
                                     <option value="Tidak diketahui">Tidak diketahui</option> --}}
                                     </select>
                                 </div>
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-1 form-group">
                                   <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>RT/RW</option>
+                                    <option value="" selected disabled>RT</option>
+                                    {{-- <option value="Laki-laki">Laki-laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                    </select>
+                                </div>
+                                <div class="mb-3 col-md-1 form-group">
+                                  <select class="form-select" id="jk" name="jk">
+                                    <option value="" selected disabled>RW</option>
                                     {{-- <option value="Laki-laki">Laki-laki</option>
                                     <option value="Perempuan">Perempuan</option>
                                     <option value="Tidak diketahui">Tidak diketahui</option> --}}
@@ -456,8 +464,8 @@
 {{-- <?php endforeach; ?> --}}
 
 <!-- modal untuk menampilkan data yang ditentukan (with export to pdf/csv) -->
-<div class="modal fade" id="laporan_i" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-xl">
+<div class="modal fade" id="export_d" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalToggleLabel2">Data Penduduk</h5>
@@ -471,15 +479,25 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">No</th>
-                                        <th scope="col">Gambar</th>
-                                        <th scope="col">ID Inventaris</th>
-                                        <th scope="col">Nama Inventaris</th>
-                                        <th scope="col">Jumlah</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Kondisi</th>
+                                        <th scope="col">NIK</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Tempat/Tgl Lahir</th>
+                                        <th scope="col">Jenis kelamin</th>
+                                        <th scope="col">Alamat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    {{-- <?php $i = 1; ?>
+                                    <?php foreach ($aset as $a_bem) : ?>
+                                        <tr>
+                                            <td scope="row"><?= $i++; ?></td>
+                                            <td><?= $a_bem['id_inventaris']; ?></td>
+                                            <td><?= $a_bem['nama_aset']; ?></td>
+                                            <td><?= $a_bem['jumlah_kapasitas']; ?></td>
+                                            <td><?= $a_bem['status']; ?></td>
+                                            <td><?= $a_bem['kondisi']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?> --}}
                                 </tbody>
                             </table>
                         </div>
