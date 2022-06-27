@@ -15,7 +15,7 @@ class CreatePenduduksTable extends Migration
     {
         Schema::create('penduduks', function (Blueprint $table) {
             $table->id();
-            $table->string('foto', 255);
+            $table->string('foto', 255)->nullable();
             $table->bigInteger('NIK');
             $table->string('nama', 255);
             $table->string('tm_lahir', 150);

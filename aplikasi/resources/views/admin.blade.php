@@ -116,8 +116,8 @@
                     <div class="mb-3 form-group">
                         <div class="mb-3">
                             <label class="mb-2"><b>Pilih Foto</b></label>
-                            <div class="col-sm-4">
-                                <img src="/img/SD-default-image.png" class="img-thumbnail img-preview">
+                            <div class="col-sm-3">
+                                <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
                             <div class="mt-2 col-md-4">
                                 <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
@@ -290,10 +290,10 @@
                         <div class="mb-3 form-group">
                             <div class="mb-3">
                                 <label class="mb-2"><b>Pilih Foto</b></label>
-                                <div class="col-sm-4">
-                                    <img src="/img/SD-default-image.png" class="img-thumbnail img-preview">
+                                <div class="col-sm-3">
+                                    <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                                 </div>
-                                <div class="mt-2 col-md-10">
+                                <div class="mt-2 col-md-4">
                                     <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
                                     <div class="invalid-feedback">
                                     </div>

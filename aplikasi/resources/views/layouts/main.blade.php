@@ -15,6 +15,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
     
+    <script>
+      function preview_img() {
+          const gambar = document.querySelector('#gambar');
+          // const gambar_label = document.querySelector('.custom-file-label');
+          const img_preview = document.querySelector('.img-preview');
+
+          // gambar_label.textContent = gambar.files[0].name;
+
+          const file_gambar = new FileReader();
+          file_gambar.readAsDataURL(gambar.files[0]);
+
+          file_gambar.onload = function(e) {
+              img_preview.src = e.target.result;
+          }
+      }
+  </script>
+
     <title>{{ $title }}</title>
   </head>
   <body>

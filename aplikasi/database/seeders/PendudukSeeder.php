@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\penduduk;
 
 class PendudukSeeder extends Seeder
 {
@@ -13,6 +14,6 @@ class PendudukSeeder extends Seeder
      */
     public function run()
     {
-        //
+        \App\Models\penduduk::factory(40)->create();
     }
 }
