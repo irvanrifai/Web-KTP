@@ -15,7 +15,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Jumlah Data KTP</div>
-                                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_ajuan; ?></div> --}}
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $jumlahData }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-file fa-2x text-gray-300" style="color:darkblue; opacity:60%;"></i>
@@ -32,7 +32,7 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">User Logged in</div>
-                                    {{-- <div class="h5 mb-0 font-weight-bold text-gray-800"><?= $total_inv; ?></div> --}}
+                                    <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $userLoggedIn }}</div>
                                 </div>
                                 <div class="col-auto">
                                     <i class="fas fa-tools fa-2x text-gray-300" style="color:red; opacity:60%;"></i>
@@ -61,7 +61,7 @@
             <a align="right" class="bi bi-printer btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#export_d"> Export</a>
         </div>
         <div class="table-responsive">
-            <table id="tb_inv" class="table table-striped">
+            <table id="tb_ktp" class="table">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -95,6 +95,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#tb_ktp').DataTable();
+    });
+</script>
 
 <!-- modal untuk tambah data -->
 <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

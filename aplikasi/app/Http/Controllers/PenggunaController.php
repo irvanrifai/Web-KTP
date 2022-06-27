@@ -6,6 +6,7 @@ use App\Models\pengguna;
 use App\Models\penduduk;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
+use Illuminate\Database\Eloquent\Collection;
 
 class PenggunaController extends Controller
 {
@@ -18,7 +19,9 @@ class PenggunaController extends Controller
     {
         return view('admin', [
             "title" => "Web E-I KTP | Admin",
-            "data" => penduduk::all()
+            "data" => penduduk::all(),
+            "jumlahData" => penduduk::all()->count(),
+            "userLoggedIn" => pengguna::all()->count()
         ]);
     }
 
@@ -86,5 +89,11 @@ class PenggunaController extends Controller
     public function destroy(pengguna $pengguna)
     {
         //
+    }
+
+    public function jumlahData()
+    {
+        $jumlah = collect(penduduk::all());
+        return $jumlah->count();
     }
 }

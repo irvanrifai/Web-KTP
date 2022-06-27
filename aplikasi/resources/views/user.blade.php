@@ -9,7 +9,7 @@
                 Export data
             </button>
         <div class="table-responsive">
-            <table id="tb_inv" class="table table-striped">
+            <table id="tb_ktp" class="table">
                 <thead>
                     <tr>
                         <th scope="col">No</th>
@@ -37,6 +37,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#tb_ktp').DataTable();
+    });
+</script>
 
 <!-- modal untuk menampilkan data yang ditentukan (with export to pdf/csv) -->
 <div class="modal fade" id="export_d" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
