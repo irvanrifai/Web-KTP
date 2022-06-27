@@ -21,17 +21,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{-- <?php $i = 1; ?>
-                    <?php foreach ($aset as $a_bem) : ?>
+                    <?php $i = 1; ?>
+                    @foreach ($data as $d)
                         <tr>
                             <td scope="row"><?= $i++; ?></td>
-                            <td><?= $a_bem['id_inventaris']; ?></td>
-                            <td><?= $a_bem['nama_aset']; ?></td>
-                            <td><?= $a_bem['jumlah_kapasitas']; ?></td>
-                            <td><?= $a_bem['status']; ?></td>
-                            <td><?= $a_bem['kondisi']; ?></td>
+                            <td>{{ $d["NIK"] }}</td>
+                            <td>{{ $d["nama"] }}</td>
+                            <td>{{ $d["tm_lahir"] }}, {{ $d["tgl_lahir"] }}</td>
+                            <td>{{ $d["jk"] }}</td>
+                            <td>{{ $d["add"] }}, {{ $d["rt"] }}/{{ $d["rw"] }}, {{ $d["kel"] }}, {{ $d["kec"] }}, {{ $d["kab"] }}</td>
                         </tr>
-                    <?php endforeach; ?> --}}
+                    @endforeach
                 </tbody>
             </table>
         </div>

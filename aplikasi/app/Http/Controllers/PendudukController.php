@@ -15,7 +15,10 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        return view();
+        return view('user', [
+            "title" => "Web E-I KTP | User",
+            "data" => penduduk::all()
+        ]);
     }
 
     /**
@@ -45,9 +48,12 @@ class PendudukController extends Controller
      * @param  \App\Models\penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function show(penduduk $penduduk)
+    public function show($id)
     {
-        //
+        return view('user', [
+            "title" => "Web E-I KTP | User",
+            // "data" => data::find($id)
+        ]);
     }
 
     /**

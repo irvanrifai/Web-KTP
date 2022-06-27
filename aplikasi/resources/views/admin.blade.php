@@ -75,7 +75,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+                    <?php $i = 1; ?>
+                    @foreach ($data as $d)
+                        <tr>
+                            <td scope="row"><?= $i++; ?></td>
+                            <td></td>
+                            <td>{{ $d["NIK"] }}</td>
+                            <td>{{ $d["nama"] }}</td>
+                            <td>{{ $d["tm_lahir"] }}, {{ $d["tgl_lahir"] }}</td>
+                            <td>{{ $d["jk"] }}</td>
+                            <td>{{ $d["add"] }}, {{ $d["rt"] }}/{{ $d["rw"] }}, {{ $d["kel"] }}, {{ $d["kec"] }}, {{ $d["kab"] }}</td>
+                            <td><a type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#edit">detail</a></td>
+                            {{-- <td><a type="button" data-bs-toggle="modal" data-bs-target="#edit"><i class="fa fa-pencil"></i></a></td> --}}
+                            {{-- <td><a type="button" data-bs-toggle="modal" data-bs-target="#hapus"><i class="fa fa-trash"></i></a></td> --}}
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

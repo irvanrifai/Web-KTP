@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pengguna;
+use App\Models\penduduk;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
 
@@ -15,7 +16,10 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin', [
+            "title" => "Web E-I KTP | Admin",
+            "data" => penduduk::all()
+        ]);
     }
 
     /**

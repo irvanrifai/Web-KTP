@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\loginController;
+use App\Http\Controllers\PendudukController;
+use App\Http\Controllers\PenggunaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,16 +18,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [homeController::class, 'index']);
+
 Route::get('/login', [loginController::class, 'index']);
 
-Route::get('/admin', function () {
-    return view('admin', [
-        "title" => "Web E-I KTP | admin"
-    ]);
-});
+Route::get('/admin', [PenggunaController::class, "index"]);
 
-Route::get('/user', function () {
-    return view('user', [
-        "title" => "Web E-I KTP | user"
-    ]);
-});
+Route::get('/user', [PendudukController::class, 'index']);
