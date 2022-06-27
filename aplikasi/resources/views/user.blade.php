@@ -25,11 +25,11 @@
                     @foreach ($data as $d)
                         <tr>
                             <td scope="row"><?= $i++; ?></td>
-                            <td>{{ $d["NIK"] }}</td>
-                            <td>{{ $d["nama"] }}</td>
-                            <td>{{ $d["tm_lahir"] }}, {{ $d["tgl_lahir"] }}</td>
-                            <td>{{ $d["jk"] }}</td>
-                            <td>{{ $d["add"] }}, {{ $d["rt"] }}/{{ $d["rw"] }}, {{ $d["kel"] }}, {{ $d["kec"] }}, {{ $d["kab"] }}</td>
+                            <td>{{ $d->NIK }}</td>
+                            <td>{{ $d->nama }}</td>
+                            <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
+                            <td>{{ $d->jk }}</td>
+                            <td>{{ $d->add }}, {{ $d->rt }}/{{ $d->rw }}, {{ $d->kel }}, {{ $d->kec }}, {{ $d->kab }}</td>
                         </tr>
                     @endforeach
                 </tbody>
