@@ -14,6 +14,6 @@ class PendudukSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\penduduk::factory(40)->create();
+        // \App\Models\penduduk::factory(40)->create();
     }
 }
