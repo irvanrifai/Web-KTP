@@ -86,9 +86,9 @@
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
                             <td>{{ $d->jk }}</td>
                             <td>{{ $d->add }}, RT {{ $d->rt }}/ RW {{ $d->rw }}, {{ $d->kel }}, {{ $d->kec }}, {{ $d->kab }}</td>
-                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#edit"><i class="fa fa-pencil me-2"></i></a>
-                                <a type="button" data-bs-toggle="modal" data-bs-target="#hapus"><i class="fa fa-trash"></i></a></td>
-                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#detail" class="btn btn-outline-primary"><i class="fa-solid fa-info"></i></a></td>
+                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#edit<?= $d['id'];?>"><i class="fa fa-pencil me-2"></i></a>
+                                <a type="button" data-bs-toggle="modal" data-bs-target="#hapus<?= $d['id'];?>"><i class="fa fa-trash"></i></a></td>
+                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#detail<?= $d['id'];?>" class="btn btn-outline-primary"><i class="fa-solid fa-info"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -278,14 +278,15 @@
 </div>
 
 <!-- modal untuk edit data -->
-    <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="editLabel">
+@foreach ($data as $d)
+    <div class="modal fade" id="edit<?= $d['id'];?>" tabindex="-1" role="dialog" aria-labelledby="editLabel">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="editLabel">Edit data</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="/admin/adm_bem/update/" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
+                <form action="/admin/update/<?= $d['id'];?>" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
                     <?= csrf_field(); ?>
                     <input type="hidden" name="kepemilikan" id="kepemilikan" value="BEM FKI UMS">
                     <div class="modal-body">
@@ -442,12 +443,11 @@
             </form>
         </div>
     </div>
-    </div>
-
-
+@endforeach
 
     <!-- modal untuk hapus data -->
-    <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+@foreach ($data as $d)
+    <div class="modal fade" id="hapus<?= $d['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -455,68 +455,82 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/adm_bem/delete" method="post" role="form" enctype="multipart/form-data">
+                    <form action="/admin/delete" method="post" role="form" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <div class="mb-3">
-                                    <div class="col-sm-4">
-                                       
+                        <div class="modal-body modal-lg">
+                                        <div class="row">
+                                        <div class="col-md-8">
+                                            <h6 class="text-uppercase fs-5">nik  :  {{ $d->NIK }}</h6>
+                                            <h6 class="text-uppercase fs-6">Nama       :  {{ $d->nama }}</h6>
+                                            <h6 class="text-uppercase fs-6">tempat/tgl lahir  :  {{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</h6>
+                                            <h6 class="text-uppercase fs-6">alamat    :  {{ $d->add }}</h6>
+                                            <h6 class="text-uppercase fs-6"> rt/rw    :  {{ $d->rt }}/{{ $d->rw }}</h6>
+                                            <h6 class="text-uppercase fs-6"> kecamatan  : {{ $d->kec }}</h6>
+                                            <h6 class="text-uppercase fs-6"> kelurahan  : {{ $d->kel }}</h6>
+                                            <h6 class="text-uppercase fs-6">agama      : {{ $d->agama }}</h6>
+                                            <h6 class="text-uppercase fs-6">status perkawinan  : {{ $d->status }}</h6>
+                                            <h6 class="text-uppercase fs-6">pekerjaan   : {{ $d->pekerjaan }}</h6>
+                                            <h6 class="text-uppercase fs-6">kewarganegaraan : {{ $d->wn }}</h6>
+                                            <h6 class="text-uppercase fs-6">berlaku hingga  : seumur hidup</h6>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <img src="https://source.unsplash.com/200x240/?man" alt=""><br>
+                                            <div align="center">
+                                            <small class="text-uppercase">{{ $d->kab }}</small><br>
+                                            <small class="text-uppercase">{{ $d->created_at }}</small>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div>
-
-                            </div>
-                            <div class="mb-3">
-                                
-                                
-                            </div>
-                            <div id="emailHelp" class="form-text">Apakah anda yakin akan menghapus data aset?</div>
+                            <div id="emailHelp" class="form-text">Apakah anda yakin akan menghapus data KTP atas nama {{ $d->nama }}?</div>
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="bi bi-close btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
                             <button type="submit" name="update" class="bi bi-trash btn btn-danger"> Hapus</button>
                         </div>
+                    </form>
                 </div>
-                </form>
-            </div>
+            </div> 
         </div>
     </div>
-{{-- <?php endforeach; ?> --}}
+@endforeach
 
 {{-- modal untuk detail data --}}
 @foreach ($data as $d)
-<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="detail<?= $d['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Detail data KTP bernama {{ $d->nama }}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Detail data KTP bernama <span class="text-uppercase">{{ $d->nama }}</span></h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="align-content-center">
-                    <h3 class="text-uppercase">Provinsi {{ $d->provinsi }}</h3>
-                    <h3 class="text-uppercase">Kabupaten {{ $d->kab }}</h3>
+                    <div align="center" class="mb-2">
+                    <h5 class="text-uppercase">Provinsi {{ $d->provinsi }}</h5>
+                    <h5 class="text-uppercase">Kabupaten {{ $d->kab }}</h5>
                     </div>
                     <div class="col-md-8">
-                        <h2 class="text-uppercase">nik :  {{ $d->NIK }}</h2>
-                        <h5 class="text-uppercase">Nama :  {{ $d->nama }}</h5>
-                        <h5 class="text-uppercase">tempat/tgl lahir :  {{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</h5>
-                        <h5 class="text-uppercase">alamat :  {{ $d->add }}</h5>
-                        <h5 class="text-uppercase">rt/rw :  {{ $d->rt }}/{{ $d->rw }}</h5>
-                        <h5 class="text-uppercase">kecamatan : {{ $d->kec }}</h5>
-                        <h5 class="text-uppercase">agama : {{ $d->agama }}</h5>
-                        <h5 class="text-uppercase">status perkawinan : {{ $d->status }}</h5>
-                        <h5 class="text-uppercase">pekerjaan : {{ $d->pekerjaan }}</h5>
-                        <h5 class="text-uppercase">kewarganegaraan : {{ $d->wn }}</h5>
-                        <h5 class="text-uppercase">berlaku hingga : seumur hidup</h5>
+                        <h6 class="text-uppercase fs-5">nik  :  {{ $d->NIK }}</h6>
+                        <h6 class="text-uppercase fs-6">Nama       :  {{ $d->nama }}</h6>
+                        <h6 class="text-uppercase fs-6">tempat/tgl lahir  :  {{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</h6>
+                        <h6 class="text-uppercase fs-6">alamat    :  {{ $d->add }}</h6>
+                        <h6 class="text-uppercase fs-6"> rt/rw    :  {{ $d->rt }}/{{ $d->rw }}</h6>
+                        <h6 class="text-uppercase fs-6"> kecamatan  : {{ $d->kec }}</h6>
+                        <h6 class="text-uppercase fs-6"> kelurahan  : {{ $d->kel }}</h6>
+                        <h6 class="text-uppercase fs-6">agama      : {{ $d->agama }}</h6>
+                        <h6 class="text-uppercase fs-6">status perkawinan  : {{ $d->status }}</h6>
+                        <h6 class="text-uppercase fs-6">pekerjaan   : {{ $d->pekerjaan }}</h6>
+                        <h6 class="text-uppercase fs-6">kewarganegaraan : {{ $d->wn }}</h6>
+                        <h6 class="text-uppercase fs-6">berlaku hingga  : seumur hidup</h6>
                     </div>
                     <div class="col-md-4">
                         <img src="https://source.unsplash.com/200x240/?man" alt=""><br>
+                        <div align="center">
                         <small class="text-uppercase">{{ $d->kab }}</small><br>
                         <small class="text-uppercase">{{ $d->created_at }}</small>
+                        </div>
                     </div>
                 </div>
             </div>
