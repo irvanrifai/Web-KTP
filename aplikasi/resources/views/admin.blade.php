@@ -72,6 +72,7 @@
                         <th scope="col">Jenis kelamin</th>
                         <th scope="col">Alamat</th>
                         <th scope="col">Aksi</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -79,14 +80,15 @@
                     @foreach ($data as $d)
                         <tr>
                             <td scope="row"><?= $i++; ?></td>
-                            <td><img src="https://source.unsplash.com/100x120/?human" alt=""></td>
+                            <td><img src="https://source.unsplash.com/100x120/?man" alt=""></td>
                             <td>{{ $d->NIK }}</td>
                             <td>{{ $d->nama }}</td>
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
                             <td>{{ $d->jk }}</td>
-                            <td>{{ $d->add }}, {{ $d->rt }}/{{ $d->rw }}, {{ $d->kel }}, {{ $d->kec }}, {{ $d->kab }}</td>
+                            <td>{{ $d->add }}, RT {{ $d->rt }}/ RW {{ $d->rw }}, {{ $d->kel }}, {{ $d->kec }}, {{ $d->kab }}</td>
                             <td><a type="button" data-bs-toggle="modal" data-bs-target="#edit"><i class="fa fa-pencil me-2"></i></a>
                                 <a type="button" data-bs-toggle="modal" data-bs-target="#hapus"><i class="fa fa-trash"></i></a></td>
+                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#detail" class="btn btn-outline-primary"><i class="fa-solid fa-info"></i></a></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -443,7 +445,8 @@
     </div>
 
 
-<!-- modal untuk hapus data -->
+
+    <!-- modal untuk hapus data -->
     <div class="modal fade" id="hapus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -481,6 +484,49 @@
         </div>
     </div>
 {{-- <?php endforeach; ?> --}}
+
+{{-- modal untuk detail data --}}
+@foreach ($data as $d)
+<div class="modal fade" id="detail" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Detail data KTP bernama {{ $d->nama }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="align-content-center">
+                    <h3 class="text-uppercase">Provinsi {{ $d->provinsi }}</h3>
+                    <h3 class="text-uppercase">Kabupaten {{ $d->kab }}</h3>
+                    </div>
+                    <div class="col-md-8">
+                        <h2 class="text-uppercase">nik :  {{ $d->NIK }}</h2>
+                        <h5 class="text-uppercase">Nama :  {{ $d->nama }}</h5>
+                        <h5 class="text-uppercase">tempat/tgl lahir :  {{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</h5>
+                        <h5 class="text-uppercase">alamat :  {{ $d->add }}</h5>
+                        <h5 class="text-uppercase">rt/rw :  {{ $d->rt }}/{{ $d->rw }}</h5>
+                        <h5 class="text-uppercase">kecamatan : {{ $d->kec }}</h5>
+                        <h5 class="text-uppercase">agama : {{ $d->agama }}</h5>
+                        <h5 class="text-uppercase">status perkawinan : {{ $d->status }}</h5>
+                        <h5 class="text-uppercase">pekerjaan : {{ $d->pekerjaan }}</h5>
+                        <h5 class="text-uppercase">kewarganegaraan : {{ $d->wn }}</h5>
+                        <h5 class="text-uppercase">berlaku hingga : seumur hidup</h5>
+                    </div>
+                    <div class="col-md-4">
+                        <img src="https://source.unsplash.com/200x240/?man" alt=""><br>
+                        <small class="text-uppercase">{{ $d->kab }}</small><br>
+                        <small class="text-uppercase">{{ $d->created_at }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <!-- modal untuk menampilkan data yang ditentukan (with export to pdf/csv) -->
 <div class="modal fade" id="export_d" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">

@@ -15,24 +15,24 @@ class CreatePenduduksTable extends Migration
     {
         Schema::create('penduduks', function (Blueprint $table) {
             $table->id();
-            $table->string('foto', 255)->nullable();
+            $table->string('foto', 255);
             $table->bigInteger('NIK');
             $table->string('nama', 255);
             $table->string('tm_lahir', 150);
             $table->date('tgl_lahir');
             $table->string('jk', 25);
-            $table->string('agama', 30)->nullable();
-            $table->string('status', 50)->nullable();
-            $table->string('goldar', 4)->nullable();
-            $table->string('pekerjaan', 50)->nullable();
-            $table->string('wn', 30)->nullable();
-            $table->string('provinsi', 150)->nullable();
-            $table->string('kab', 150)->nullable();
-            $table->string('kec', 150)->nullable();
-            $table->string('kel', 150)->nullable();
-            $table->string('rt', 150)->nullable();
-            $table->string('rw', 150)->nullable();
-            $table->string('add', 255)->nullable();
+            $table->string('agama', 30);
+            $table->string('status', 50);
+            $table->string('goldar', 4);
+            $table->string('pekerjaan', 50);
+            $table->string('wn', 30);
+            $table->string('provinsi', 150);
+            $table->string('kab', 150);
+            $table->string('kec', 150);
+            $table->string('kel', 150);
+            $table->string('rt', 150);
+            $table->string('rw', 150);
+            $table->string('add', 255);
             $table->timestamps();
         });
     }
