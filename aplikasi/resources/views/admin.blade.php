@@ -79,7 +79,7 @@
                     @foreach ($data as $d)
                         <tr>
                             <td scope="row"><?= $i++; ?></td>
-                            <td></td>
+                            <td><img src="https://source.unsplash.com/100x120/?human" alt=""></td>
                             <td>{{ $d->NIK }}</td>
                             <td>{{ $d->nama }}</td>
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
