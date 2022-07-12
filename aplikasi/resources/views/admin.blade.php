@@ -55,7 +55,7 @@
             Tambah data
         </button>
         <div style="float: right;">
-            <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#rentang_i">
+            <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#import_d">
                 Import
             </button>
             <a align="right" class="bi bi-printer btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#export_d"> Export</a>
@@ -279,27 +279,27 @@
 
 <!-- modal untuk edit data -->
 @foreach ($data as $d)
-    <div class="modal fade" id="edit<?= $d['id'];?>" tabindex="-1" role="dialog" aria-labelledby="editLabel">
-        <div class="modal-dialog modal-xl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editLabel">Edit data</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <form action="/admin/update/<?= $d['id'];?>" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
-                    <?= csrf_field(); ?>
-                    <input type="hidden" name="kepemilikan" id="kepemilikan" value="BEM FKI UMS">
-                    <div class="modal-body">
-                        <div class="mb-3 form-group">
-                            <div class="mb-3">
-                                <label class="mb-2"><b>Pilih Foto</b></label>
-                                <div class="col-sm-3">
-                                    <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
+<div class="modal fade" id="edit<?= $d['id'];?>" tabindex="-1" role="dialog" aria-labelledby="editLabel">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editLabel">Edit data</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="/admin/update/<?= $d['id'];?>" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
+                <?= csrf_field(); ?>
+                <input type="hidden" name="kepemilikan" id="kepemilikan" value="BEM FKI UMS">
+                <div class="modal-body">
+                    <div class="mb-3 form-group">
+                        <div class="mb-3">
+                            <label class="mb-2"><b>Pilih Foto</b></label>
+                            <div class="col-sm-3">
+                                <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
+                            </div>
+                            <div class="mt-2 col-md-4">
+                                <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
+                                <div class="invalid-feedback">
                                 </div>
-                                <div class="mt-2 col-md-4">
-                                    <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
-                                    <div class="invalid-feedback">
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -445,7 +445,7 @@
     </div>
 @endforeach
 
-    <!-- modal untuk hapus data -->
+<!-- modal untuk hapus data -->
 @foreach ($data as $d)
     <div class="modal fade" id="hapus<?= $d['id'];?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -458,31 +458,12 @@
                     <form action="/admin/delete" method="post" role="form" enctype="multipart/form-data">
                         <?= csrf_field(); ?>
                         <div class="modal-body modal-lg">
-                                        <div class="row">
-                                        <div class="col-md-8">
                                             <h6 class="text-uppercase fs-5">nik  :  {{ $d->NIK }}</h6>
                                             <h6 class="text-uppercase fs-6">Nama       :  {{ $d->nama }}</h6>
                                             <h6 class="text-uppercase fs-6">tempat/tgl lahir  :  {{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</h6>
-                                            <h6 class="text-uppercase fs-6">alamat    :  {{ $d->add }}</h6>
-                                            <h6 class="text-uppercase fs-6"> rt/rw    :  {{ $d->rt }}/{{ $d->rw }}</h6>
-                                            <h6 class="text-uppercase fs-6"> kecamatan  : {{ $d->kec }}</h6>
-                                            <h6 class="text-uppercase fs-6"> kelurahan  : {{ $d->kel }}</h6>
-                                            <h6 class="text-uppercase fs-6">agama      : {{ $d->agama }}</h6>
-                                            <h6 class="text-uppercase fs-6">status perkawinan  : {{ $d->status }}</h6>
-                                            <h6 class="text-uppercase fs-6">pekerjaan   : {{ $d->pekerjaan }}</h6>
                                             <h6 class="text-uppercase fs-6">kewarganegaraan : {{ $d->wn }}</h6>
                                             <h6 class="text-uppercase fs-6">berlaku hingga  : seumur hidup</h6>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <img src="https://source.unsplash.com/200x240/?man" alt=""><br>
-                                            <div align="center">
-                                            <small class="text-uppercase">{{ $d->kab }}</small><br>
-                                            <small class="text-uppercase">{{ $d->created_at }}</small>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                            <hr>
                             <div id="emailHelp" class="form-text">Apakah anda yakin akan menghapus data KTP atas nama {{ $d->nama }}?</div>
                         </div>
                         <div class="modal-footer">
@@ -587,6 +568,54 @@
                 <a class="bi bi-printer btn btn-danger no-print" href="javascript:printDiv('laporan_cetak_i');"> Export to pdf</a>
                 <a class="bi bi-printer btn btn-success no-print" href="javascript:printDiv('laporan_cetak_i');"> Export to csv</a>
                 <!-- <button class="bi bi-arrow-left-square btn btn-primary" data-bs-target="#rentang" data-bs-toggle="modal"> Kembali</button> -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal untuk menampilkan data yang ditentukan (with import from csv) -->
+<div class="modal fade" id="import_d" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalToggleLabel2">Data Penduduk</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="print-area" id="laporan_cetak_i">
+                <div class="modal-body">
+                    <div class="row table-responsive">
+                        <div class="col">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">No</th>
+                                        <th scope="col">NIK</th>
+                                        <th scope="col">Nama</th>
+                                        <th scope="col">Tempat/Tgl Lahir</th>
+                                        <th scope="col">Jenis kelamin</th>
+                                        <th scope="col">Alamat</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{-- <?php $i = 1; ?>
+                                    <?php foreach ($aset as $a_bem) : ?>
+                                        <tr>
+                                            <td scope="row"><?= $i++; ?></td>
+                                            <td><?= $a_bem['id_inventaris']; ?></td>
+                                            <td><?= $a_bem['nama_aset']; ?></td>
+                                            <td><?= $a_bem['jumlah_kapasitas']; ?></td>
+                                            <td><?= $a_bem['status']; ?></td>
+                                            <td><?= $a_bem['kondisi']; ?></td>
+                                        </tr>
+                                    <?php endforeach; ?> --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a class="bi bi-printer btn btn-danger no-print" href="javascript:printDiv('laporan_cetak_i');"> Import now</a>
             </div>
         </div>
     </div>

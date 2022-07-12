@@ -12,11 +12,11 @@
       <input type="password" class="form-control" id="password">
     </div>
 </div>
-    {{-- <button type="submit" class="btn btn-primary">Login</button> --}}
-    Sementara
+    <button type="submit" class="btn btn-primary"><i class="fa fa-user"></i> Login</button>
+    {{-- Sementara
     <br>
     <a type="button" class="btn btn-primary" href="/admin">Login admin</a>
-    <a type="button" class="btn btn-primary" href="/user">Login user</a>
+    <a type="button" class="btn btn-primary" href="/user">Login user</a> --}}
   </form>
 
 @endsection
