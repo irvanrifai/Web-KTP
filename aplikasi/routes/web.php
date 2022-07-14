@@ -23,6 +23,7 @@ Route::get('/', [homeController::class, 'index']);
 Route::get('/login', [loginController::class, 'index']);
 
 Route::get('/registrasi', [registrasiController::class, 'index']);
+Route::post('/registrasi', [registrasiController::class, 'store']);
 
 Route::get('/admin', [PenggunaController::class, "index"]);
 
