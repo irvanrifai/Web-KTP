@@ -18,7 +18,7 @@ class PendudukController extends Controller
         return view('user', [
             "title" => "Web E-I KTP | User",
             "data" => penduduk::all()
-            // "data" => penduduk::with([])->all()
+            // "data" => penduduk::with(['penduduk'])->all()
             // "data" => penduduk::load([])->all()
         ]);
     }

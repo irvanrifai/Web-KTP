@@ -3,6 +3,14 @@
 @section('container')
 
 <div class="row mt-4">
+    @if(session()->has('success_login_u'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_login_u') }}
+        </div>
+    </div>
+    @endif
     <div class="col">
         <h3>Data Penduduk</h3>
             <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#export_d">

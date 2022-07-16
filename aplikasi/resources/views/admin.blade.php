@@ -3,12 +3,20 @@
 @section('container')
 
 <div class="row mt-4">
+    @if(session()->has('success_login_a'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_login_a') }}
+        </div>
+    </div>
+    @endif
     <div class="col">
         <div class="container-fluid">
             <div class="row">
                 <h3>User Activity</h3>
 
-                <!-- ds total ajuan peminjaman aset -->
+                <!-- total data ktp -->
                 <div class="col-xl-4 col-md-6 mb-4 mt-3">
                     <div class="card border-primary shadow h-100 py-2">
                         <div class="card-body">
@@ -25,7 +33,7 @@
                     </div>
                 </div>
 
-                <!-- total aset ormawa terkait -->
+                <!-- total user -->
                 <div class="col-xl-4 col-md-6 mb-4 mt-3">
                     <div class="card border-danger shadow h-100 py-2">
                         <div class="card-body">
@@ -35,7 +43,7 @@
                                     <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $userLoggedIn }}</div>
                                 </div>
                                 <div class="col-auto">
-                                    <i class="fas fa-tools fa-2x text-gray-300" style="color:red; opacity:60%;"></i>
+                                    <i class="fas fa-user fa-2x text-gray-300" style="color:red; opacity:60%;"></i>
                                 </div>
                             </div>
                         </div>

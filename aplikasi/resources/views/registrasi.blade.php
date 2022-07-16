@@ -26,7 +26,7 @@
               @enderror
             
             <label for="password" class="form-label mt-3">Password</label>
-            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required value="{{ old('pass') }}">
+            <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" id="password" required>
             @error('password')
             <div class="invalid-feedback">
                   {{ $message }}
@@ -40,9 +40,9 @@
             <br>
             <a type="button" class="btn btn-primary" href="/admin">Login admin</a>
             <a type="button" class="btn btn-primary" href="/user">Login user</a> --}}
-            <label for="">or</label>
-            <a href="/login" class="text-decoration-none">Login!</a>
           </form>
+            <label for="" class="mt-2">Already have account?</label>
+            <a href="/login" class="text-decoration-none">Login!</a>
     </div>
 </div>
 

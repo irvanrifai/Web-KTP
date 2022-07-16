@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\pengguna;
+use App\Models\penduduk;
 
 class homeController extends Controller
 {
@@ -13,8 +15,24 @@ class homeController extends Controller
      */
     public function index()
     {
+        $query = penduduk::latest();
+        if (request('cari')) {
+            $query->where('nama', 'like', '%' . request('cari') . '%')
+                ->orWhere('nik', 'like', '%' . request('cari') . '%')
+                ->orWhere('provinsi', 'like', '%' . request('cari') . '%')
+                ->orWhere('kab', 'like', '%' . request('cari') . '%')
+                ->orWhere('kec', 'like', '%' . request('cari') . '%')
+                ->orWhere('kel', 'like', '%' . request('cari') . '%')
+                ->orWhere('add', 'like', '%' . request('cari') . '%')
+                ->orWhere('tm_lahir', 'like', '%' . request('cari') . '%')
+                ->orWhere('nik', 'like', '%' . request('cari') . '%');
+        }
+        // dd(request('cari'));
         return view('home', [
-            "title" => "Web E-I KTP | Home"
+            "title" => "Web E-I KTP",
+            "data" => $query->paginate(5)->withQueryString(),
+            "jumlahData" => penduduk::all()->count(),
+            "userLoggedIn" => pengguna::all()->count()
         ]);
     }
 

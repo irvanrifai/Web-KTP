@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\pengguna;
 use App\Models\penduduk;
+use App\Models\User;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,11 +18,22 @@ class PenggunaController extends Controller
      */
     public function index()
     {
+        $query = penduduk::latest();
+        if (request('cari')) {
+            $query->where('nama', 'like', '%' . request('cari') . '%')
+                ->orWhere('nik', 'like', '%' . request('cari') . '%')
+                ->orWhere('provinsi', 'like', '%' . request('cari') . '%')
+                ->orWhere('kab', 'like', '%' . request('cari') . '%')
+                ->orWhere('add', 'like', '%' . request('cari') . '%')
+                ->orWhere('tm_lahir', 'like', '%' . request('cari') . '%')
+                ->orWhere('nik', 'like', '%' . request('cari') . '%');
+        }
+        // dd(request('cari'));
         return view('admin', [
             "title" => "Web E-I KTP | Admin",
-            "data" => penduduk::all(),
+            "data" => $query->get(),
             "jumlahData" => penduduk::all()->count(),
-            "userLoggedIn" => pengguna::all()->count()
+            "userLoggedIn" => User::all()->count()
         ]);
     }
 

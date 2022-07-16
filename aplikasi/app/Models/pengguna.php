@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class pengguna extends Model
 {
     use HasFactory;
+
+    public function scopeFind($query)
+    {
+        // 
+    }
 }

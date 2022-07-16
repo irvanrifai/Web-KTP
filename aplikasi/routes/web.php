@@ -20,11 +20,16 @@ use App\Http\Controllers\PenggunaController;
 
 Route::get('/', [homeController::class, 'index']);
 
-Route::get('/login', [loginController::class, 'index']);
+Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
 
-Route::get('/registrasi', [registrasiController::class, 'index']);
+Route::post('/login', [loginController::class, 'authenticate']);
+
+Route::post('/logout', [loginController::class, 'logout']);
+
+Route::get('/registrasi', [registrasiController::class, 'index'])->middleware('guest');
+
 Route::post('/registrasi', [registrasiController::class, 'store']);
 
-Route::get('/admin', [PenggunaController::class, "index"]);
+Route::get('/admin', [PenggunaController::class, "index"])->middleware('auth');
 
-Route::get('/user', [PendudukController::class, 'index']);
+Route::get('/user', [PendudukController::class, 'index'])->middleware('auth');
