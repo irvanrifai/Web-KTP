@@ -185,7 +185,7 @@
                 <h5 class="modal-title" id="exampleModalLabel">Tambah data baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form novalidate action="/PenggunaController/add" role="form" method="POST" enctype="multipart/form-data" id="form_tambah" class="needs-validation">
+            <form novalidate action="/PendudukController" role="form" method="POST" enctype="multipart/form-data" id="form_tambah" class="needs-validation">
                 @csrf
                 <input type="hidden" name="berlaku" id="berlaku" value="Seumur Hidup">
                 <div class="modal-body">
@@ -196,8 +196,8 @@
                                 <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
                             <div class="mt-2 col-md-4">
-                                <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
-                                @error('gambar')
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" value="<?= old('foto'); ?>" onchange="preview_img()">
+                                @error('foto')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -208,9 +208,9 @@
                     <div class="row">
                             <div class="row mb-2 g-3">
                                 <div class="mb-3 col-md-3 form-group">
-                                  <label for="nik" class="form-label">NIK</label>
-                                  <input type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik" placeholder="Nomor Induk Kependudukan" required value="<?= old('nik'); ?>">
-                                  @error('nik')
+                                  <label for="NIK" class="form-label">NIK</label>
+                                  <input type="number" class="form-control @error('NIK') is-invalid @enderror" name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required value="<?= old('NIK'); ?>">
+                                  @error('NIK')
                                   <div class="invalid-feedback">
                                       {{ $message }}
                                   </div>
@@ -384,7 +384,7 @@
                                 <div class="mb-3 col-md-1 form-group">
                                   <select class="form-select @error('rt') is-invalid @enderror" id="rt" name="rt">
                                     <option value="<?= old('rt') ? old('rt') : '' ; ?>" selected disabled>RT</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    <option value="Tidak diketahui">02</option>
                                     </select>
                                     @error('rt')
                                     <div class="invalid-feedback">
@@ -395,7 +395,7 @@
                                 <div class="mb-3 col-md-1 form-group">
                                   <select class="form-select @error('rw') is-invalid @enderror" id="rw" name="rw">
                                     <option value="<?= old('rw') ? old('rw') : '' ; ?>" selected disabled>RW</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    <option value="Tidak diketahui">03</option>
                                     </select>
                                     @error('rw')
                                     <div class="invalid-feedback">
@@ -443,7 +443,7 @@
                                 <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
                             <div class="mt-2 col-md-4">
-                                <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
+                                <input class="form-control" type="file" id="foto" name="foto" value="<?= old('foto'); ?>" onchange="preview_img()">
                                 <div class="invalid-feedback">
                                 </div>
                                 </div>
@@ -601,8 +601,9 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/admin/delete" method="post" role="form" enctype="multipart/form-data">
-                        <?= csrf_field(); ?>
+                    <form action="/PendudukController/{{ $d->id }}" method="post" role="form" enctype="multipart/form-data">
+                        @method('delete')
+                        @csrf
                         <div class="modal-body modal-lg">
                                             <h6 class="text-uppercase fs-5">nik  :  {{ $d->NIK }}</h6>
                                             <h6 class="text-uppercase fs-6">Nama       :  {{ $d->nama }}</h6>
@@ -614,7 +615,7 @@
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="bi bi-close btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
-                            <button type="submit" name="update" class="bi bi-trash btn btn-danger"> Hapus</button>
+                            <button type="submit" name="delete" class="bi bi-trash btn btn-danger"> Hapus</button>
                         </div>
                     </form>
                 </div>

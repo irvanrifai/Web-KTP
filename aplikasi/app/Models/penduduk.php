@@ -16,6 +16,9 @@ class penduduk extends Model
      *
      * @var array<int, string>
      */
+
+    protected $table = 'penduduk';
+
     protected $fillable = [
         'foto',
         'NIK',
@@ -31,9 +34,14 @@ class penduduk extends Model
         'provinsi',
         'kab',
         'kec',
+        'kel',
         'rt',
         'rw',
         'add',
+    ];
+
+    protected $guarded = [
+        'id',
     ];
 
     /**

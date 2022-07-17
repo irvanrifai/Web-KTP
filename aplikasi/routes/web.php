@@ -30,8 +30,8 @@ Route::get('/registrasi', [registrasiController::class, 'index'])->middleware('g
 
 Route::post('/registrasi', [registrasiController::class, 'store']);
 
-Route::get('/admin', [PenggunaController::class, 'index'])->middleware('auth');
+// Route::get('/admin', [PendudukController::class, 'index'])->middleware('auth');
 
-Route::get('/user', [PendudukController::class, 'index'])->middleware('auth');
+// Route::get('/user', [PendudukController::class, 'index'])->middleware('auth');
 
-Route::post('/PenggunaController/add', [PenggunaController::class, 'store']);
+Route::resource('/PendudukController', PendudukController::class)->middleware('auth');

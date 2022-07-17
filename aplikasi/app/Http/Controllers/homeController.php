@@ -29,7 +29,7 @@ class homeController extends Controller
         }
         // dd(request('cari'));
         return view('home', [
-            "title" => "Web E-I KTP",
+            "title" => "E-I KTP",
             "data" => $query->paginate(5)->withQueryString(),
             "jumlahData" => penduduk::all()->count(),
             "userLoggedIn" => pengguna::all()->count()

@@ -15,7 +15,7 @@ class loginController extends Controller
     public function index()
     {
         return view('login', [
-            "title" => "Web E-I KTP | Login"
+            "title" => "E-I KTP | Login"
         ]);
     }
 
@@ -31,7 +31,7 @@ class loginController extends Controller
 
             $request->session()->flash('success_login_a', 'Welcome, admin!');
 
-            return redirect()->intended('/admin');
+            return redirect()->intended('/PendudukController');
         }
 
         return back()->with([

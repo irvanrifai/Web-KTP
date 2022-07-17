@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\penduduk;
+use App\Models\User;
 use App\Http\Requests\StorependudukRequest;
 use App\Http\Requests\UpdatependudukRequest;
 
@@ -15,11 +16,11 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        return view('user', [
-            "title" => "Web E-I KTP | User",
-            "data" => penduduk::all()
-            // "data" => penduduk::with(['penduduk'])->all()
-            // "data" => penduduk::load([])->all()
+        return view('admin', [
+            "title" => "E-I KTP | Admin",
+            "data" => penduduk::latest()->get(),
+            "jumlahData" => penduduk::all()->count(),
+            "userLoggedIn" => User::all()->count()
         ]);
     }
 
@@ -30,7 +31,7 @@ class PendudukController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin');
     }
 
     /**
@@ -41,7 +42,39 @@ class PendudukController extends Controller
      */
     public function store(StorependudukRequest $request)
     {
-        //
+        if (!$validatedData = $request->validate([
+            'foto' => 'file|image|max:4096',
+            'NIK' => 'required|size:16|digits:16|unique:penduduk,NIK',
+            'nama' => 'required|max:50|string',
+            'tm_lahir' => 'required|max:50',
+            'tgl_lahir' => 'required|date',
+            'jk' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'goldar' => 'required',
+            'pekerjaan' => 'required|max:50',
+            'wn' => 'required',
+            'provinsi' => 'required|max:50',
+            'kab' => 'required|max:50',
+            'kec' => 'required|max:50',
+            'kel' => 'required|max:50',
+            'rt' => 'required',
+            'rw' => 'required',
+            'add' => 'required|max:50',
+        ])) {
+            $request->session()->flash('failed_c', 'Add data KTP unsuccessfull!');
+
+            return redirect('/PendudukController')->withInput();
+        }
+        // $validatedData['password'] = bcrypt($validatedData['password']);
+        // $validatedData['user_id'] = auth()->user()->id;
+
+        penduduk::create($validatedData);
+
+        $request->session()->flash('success_c', 'Add data KTP successfull!');
+
+        // return redirect('/admin')->with('success_c', 'Add data KTP successfull!');
+        return redirect('/PendudukController');
     }
 
     /**
@@ -52,10 +85,7 @@ class PendudukController extends Controller
      */
     public function show($id)
     {
-        return view('user', [
-            "title" => "Web E-I KTP | User",
-            // "data" => data::find($id)
-        ]);
+        // 
     }
 
     /**
@@ -89,6 +119,11 @@ class PendudukController extends Controller
      */
     public function destroy(penduduk $penduduk)
     {
-        //
+        penduduk::destroy($penduduk->id);
+
+        // $request->session()->flash('success_c', 'Add data KTP successfull!');
+
+        return redirect('/PendudukController')->with('success_d', 'Delete data KTP successfull!');
+        // return redirect('/PendudukController');
     }
 }

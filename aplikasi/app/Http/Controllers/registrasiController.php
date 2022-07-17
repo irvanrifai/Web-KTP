@@ -10,7 +10,7 @@ class registrasiController extends Controller
     public function index()
     {
         return view('registrasi', [
-            "title" => "Web E-I KTP | Register"
+            "title" => "E-I KTP | Register"
         ]);
     }
 

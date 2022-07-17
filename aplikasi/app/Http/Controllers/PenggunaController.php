@@ -18,20 +18,9 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        $query = penduduk::latest();
-        if (request('cari')) {
-            $query->where('nama', 'like', '%' . request('cari') . '%')
-                ->orWhere('nik', 'like', '%' . request('cari') . '%')
-                ->orWhere('provinsi', 'like', '%' . request('cari') . '%')
-                ->orWhere('kab', 'like', '%' . request('cari') . '%')
-                ->orWhere('add', 'like', '%' . request('cari') . '%')
-                ->orWhere('tm_lahir', 'like', '%' . request('cari') . '%')
-                ->orWhere('nik', 'like', '%' . request('cari') . '%');
-        }
-        // dd(request('cari'));
         return view('admin', [
             "title" => "Web E-I KTP | Admin",
-            "data" => $query->get(),
+            "data" => penduduk::latest()->get(),
             "jumlahData" => penduduk::all()->count(),
             "userLoggedIn" => User::all()->count()
         ]);
@@ -44,7 +33,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin');
     }
 
     /**
@@ -57,8 +46,8 @@ class PenggunaController extends Controller
     {
 
         $validatedData = $request->validate([
-            'gambar' => 'file|image|max:4096',
-            'nik' => 'required|size:16|digits:16',
+            'foto' => 'file|image|max:4096',
+            'NIK' => 'required|size:16|digits:16|unique:penduduk,NIK',
             'nama' => 'required|max:50|string',
             'tm_lahir' => 'required|max:50',
             'tgl_lahir' => 'required|date',
@@ -78,11 +67,13 @@ class PenggunaController extends Controller
         ]);
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
+        $validatedData['user_id'] = auth()->user()->id;
 
         penduduk::create($validatedData);
 
-        $request->session()->flash('success_c', 'Add data successfull!');
+        $request->session()->flash('success_c', 'Add data KTP successfull!');
 
+        // return redirect('/admin')->with('success_c', 'Add data KTP successfull!');
         return redirect('/admin');
     }
 
