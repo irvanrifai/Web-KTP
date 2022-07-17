@@ -3,6 +3,7 @@
 @section('container')
 
 <div class="row mt-4">
+    {{-- alert success login --}}
     @if(session()->has('success_login_a'))
     <div class="alert alert-success d-flex align-items-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
@@ -11,6 +12,69 @@
         </div>
     </div>
     @endif
+    @if(session()->has('success_login_u'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_login_u') }}
+        </div>
+    </div>
+    @endif
+
+    {{-- alert condition create --}}
+    @if(session()->has('success_c'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_c') }}
+        </div>
+    </div>
+    @endif
+    @if(session()->has('failed_c'))
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+        {{ session('failed_c') }}
+        </div>
+    </div>
+    @endif
+
+    {{-- alert condition update --}}
+    @if(session()->has('success_u'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_u') }}
+        </div>
+    </div>
+    @endif
+    @if(session()->has('failed_u'))
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+        {{ session('failed_u') }}
+        </div>
+    </div>
+    @endif
+
+    {{-- alert condition delete --}}
+    @if(session()->has('success_d'))
+    <div class="alert alert-success d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+        <div>
+        {{ session('success_d') }}
+        </div>
+    </div>
+    @endif
+    @if(session()->has('failed_d'))
+    <div class="alert alert-danger d-flex align-items-center" role="alert">
+        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+        <div>
+        {{ session('failed_d') }}
+        </div>
+    </div>
+    @endif
+
     <div class="col">
         <div class="container-fluid">
             <div class="row">
@@ -59,14 +123,14 @@
 <div class="row mt-4">
     <div class="col">
         <h3>Pengelolaan Data KTP</h3>
-        <button type="button" class="bi bi-plus-square btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#tambah">
+        <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#tambah"><i class="fa fa-plus"></i>
             Tambah data
         </button>
         <div style="float: right;">
-            <button type="button" class="bi bi-filter btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#import_d">
+            <button type="button" class="btn btn-outline-success my-3" data-bs-toggle="modal" data-bs-target="#import_d"><i class="fa fa-file-arrow-down"></i>
                 Import
             </button>
-            <a align="right" class="bi bi-printer btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#export_d"> Export</a>
+            <a align="right" class="btn btn-outline-primary no-print" data-bs-toggle="modal" data-bs-target="#export_d"><i class="fa fa-file-export"></i> Export</a>
         </div>
         <div class="table-responsive">
             <table id="tb_ktp" class="table">
@@ -80,23 +144,25 @@
                         <th scope="col">Jenis kelamin</th>
                         <th scope="col">Alamat</th>
                         <th scope="col">Aksi</th>
-                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
                     @foreach ($data as $d)
                         <tr>
-                            <td scope="row"><?= $i++; ?></td>
+                            <td scope="row">{{ $loop->iteration }}</td>
                             <td><img src="https://source.unsplash.com/100x120/?man" alt=""></td>
                             <td>{{ $d->NIK }}</td>
                             <td>{{ $d->nama }}</td>
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
                             <td>{{ $d->jk }}</td>
                             <td>{{ $d->add }}, RT {{ $d->rt }}/ RW {{ $d->rw }}, {{ $d->kel }}, {{ $d->kec }}, {{ $d->kab }}</td>
-                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#edit<?= $d['id'];?>"><i class="fa fa-pencil me-2"></i></a>
-                                <a type="button" data-bs-toggle="modal" data-bs-target="#hapus<?= $d['id'];?>"><i class="fa fa-trash"></i></a></td>
-                            <td><a type="button" data-bs-toggle="modal" data-bs-target="#detail<?= $d['id'];?>" class="btn btn-outline-primary"><i class="fa-solid fa-info"></i></a></td>
+                            <td>
+                                <div class="d-flex">
+                                    <a data-bs-toggle="modal" data-bs-target="#edit<?= $d['id'];?>"><span class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>
+                                    <a data-bs-toggle="modal" class="mx-1" data-bs-target="#hapus<?= $d['id'];?>"><span class="badge bg-danger"><i class="fa fa-trash"></i></span></a>
+                                    <a data-bs-toggle="modal" data-bs-target="#detail<?= $d['id'];?>"><span class="badge bg-info"><i class="fa-solid fa-info mx-1"></i></span></a>
+                                </div>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -119,8 +185,8 @@
                 <h5 class="modal-title" id="exampleModalLabel">Tambah data baru</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form novalidate action="/admin/adm_bem/save" role="form" method="POST" enctype="multipart/form-data" id="form_tambah" class="needs-validation">
-                {{-- <?= csrf_field(); ?> --}}
+            <form novalidate action="/PenggunaController/add" role="form" method="POST" enctype="multipart/form-data" id="form_tambah" class="needs-validation">
+                @csrf
                 <input type="hidden" name="berlaku" id="berlaku" value="Seumur Hidup">
                 <div class="modal-body">
                     <div class="mb-3 form-group">
@@ -130,46 +196,73 @@
                                 <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
                             <div class="mt-2 col-md-4">
-                                <input class="form-control" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
+                                <input class="form-control @error('gambar') is-invalid @enderror" type="file" id="gambar" name="gambar" value="<?= old('gambar'); ?>" onchange="preview_img()">
+                                @error('gambar')
                                 <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
                     <div class="row">
-                        <form>
                             <div class="row mb-2 g-3">
                                 <div class="mb-3 col-md-3 form-group">
                                   <label for="nik" class="form-label">NIK</label>
-                                  <input type="number" class="form-control" id="nik" placeholder="Nomor Induk Kependudukan">
+                                  <input type="number" class="form-control @error('nik') is-invalid @enderror" name="nik" id="nik" placeholder="Nomor Induk Kependudukan" required value="<?= old('nik'); ?>">
+                                  @error('nik')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>
                                 <div class="mb-3 col-md-3 form-group">
                                   <label for="nama" class="form-label">Nama</label>
-                                  <input type="text" class="form-control" id="nama" placeholder="Nama lengkap">
+                                  <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama lengkap" required value="<?= old('nama'); ?>">
+                                  @error('nama')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>  
                                 <div class="mb-3 col-md-3 form-group">
                                   <label for="tm_lahir" class="form-label">Tempat lahir</label>
-                                  <input type="text" class="form-control" id="tm_lahir" placeholder="Jakarta">
+                                  <input type="text" class="form-control @error('tm_lahir') is-invalid @enderror" name="tm_lahir" id="tm_lahir" placeholder="Jakarta" required value="<?= old('tm_lahir'); ?>">
+                                  @error('tm_lahir')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>
                                 <div class="mb-3 col-md-3 form-group">
                                   <label for="tgl_lahir" class="form-label">Tanggal lahir</label>
-                                  <input type="date" class="form-control" id="tgl_lahir">
+                                  <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" id="tgl_lahir" value="<?= old('tgl_lahir'); ?>">
+                                  @error('tgl_lahir')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>
                                 
                                 <div class="mb-3 col-md-2 form-group">
                                   <label for="jk" class="form-label">Jenis Kelamin</label>
-                                  <select class="form-select" id="jk" name="jk">
-                                  <option value="" selected disabled>Pilih</option>
+                                  <select class="form-select @error('jk') is-invalid @enderror" id="jk" name="jk">
+                                  <option value="<?= old('jk') ? old('jk') : '' ; ?>" selected disabled>Pilih</option>
                                   <option value="Laki-laki">Laki-laki</option>
                                   <option value="Perempuan">Perempuan</option>
                                   <option value="Tidak diketahui">Tidak diketahui</option>
                                   </select>
+                                  @error('jk')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                  @enderror
                                 </div>
                           
                                 <div class="mb-3 col-md-2 form-group">
                                   <label for="agama" class="form-label">Agama</label>
-                                  <select class="form-select" id="agama" name="agama">
-                                    <option value="" selected disabled>Pilih</option>
+                                  <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama">
+                                    <option value="<?= old('agama') ? old('agama') : '' ; ?>" selected disabled>Pilih</option>
                                     <option value="Islam">Islam</option>
                                     <option value="Kristen">Kristen</option>
                                     <option value="Katolik">Katolik</option>
@@ -178,102 +271,147 @@
                                     <option value="Konghu chu">Konghu chu</option>
                                     <option value="Lainnya">Lainnya</option>
                                     </select>
+                                    @error('agama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 
                                 
                                 <div class="mb-3 col-md-2 form-group">
                                   <label for="status" class="form-label">Status</label>
-                                  <select class="form-select" id="status" name="status">
-                                    <option value="" selected disabled>Pilih</option>
+                                  <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
+                                    <option value="<?= old('status') ? old('status') : '' ; ?>" selected disabled>Pilih</option>
                                     <option value="Belum kawin">Belum kawin</option>
                                     <option value="Kawin">Kawin</option>
                                     <option value="Cerai">Cerai</option>
                                     </select>
+                                    @error('status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                           
                                 <div class="mb-3 col-md-2 form-group">
                                   <label for="goldar" class="form-label">Gol. Darah</label>
-                                  <select class="form-select" id="goldar" name="goldar">
-                                    <option value="" selected disabled>Pilih</option>
+                                  <select class="form-select @error('goldar') is-invalid @enderror" id="goldar" name="goldar">
+                                    <option value="<?= old('goldar') ? old('goldar') : '' ; ?>" selected disabled>Pilih</option>
                                     <option value="A">A</option>
                                     <option value="O">O</option>
                                     <option value="AB">AB</option>
                                     <option value="B">B</option>
                                     <option value="-">-</option>
                                     </select>
+                                    @error('goldar')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                           
-                                  <div class="mb-3 col-md-3 form-group">
+                                <div class="mb-3 col-md-3 form-group">
                                     <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control" id="pekerjaan" placeholder="Pengusaha">
-                                  </div>
+                                    <input type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan" placeholder="Pengusaha" required value="<?= old('pekerjaan'); ?>">
+                                    @error('pekerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror  
+                                </div>
                                   
                                 
                                 <label for="alamat" class="form-label">Alamat</label>
                           
                                 <div class="mb-3 col-md-2 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>Warga Negara</option>
+                                  <select class="form-select @error('wn') is-invalid @enderror" id="wn" name="wn">
+                                    <option value="<?= old('wn') ? old('wn') : '' ; ?>" selected disabled>Warga Negara</option>
                                     <option value="WNI">WNI</option>
                                     <option value="WNA">WNA</option>
                                     </select>
+                                    @error('wn')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                           
                                 <div class="mb-3 col-md-2 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>Provinsi</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                                    <option value="<?= old('provinsi') ? old('provinsi') : '' ; ?>" selected disabled>Provinsi</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('provinsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-2 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>Kabupaten/Kota</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('kab') is-invalid @enderror" id="kab" name="kab">
+                                    <option value="<?= old('kab') ? old('kab') : '' ; ?>" selected disabled>Kabupaten/Kota</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('kab')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-2 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>Kecamatan</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('kec') is-invalid @enderror" id="kec" name="kec">
+                                    <option value="<?= old('kec') ? old('kec') : '' ; ?>" selected disabled>Kecamatan</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('kec')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-2 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>Kel/Desa</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('kel') is-invalid @enderror" id="kel" name="kel">
+                                    <option value="<?= old('kel') ? old('kel') : '' ; ?>" selected disabled>Kel/Desa</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('kel')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-1 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>RT</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('rt') is-invalid @enderror" id="rt" name="rt">
+                                    <option value="<?= old('rt') ? old('rt') : '' ; ?>" selected disabled>RT</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('rt')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-1 form-group">
-                                  <select class="form-select" id="jk" name="jk">
-                                    <option value="" selected disabled>RW</option>
-                                    {{-- <option value="Laki-laki">Laki-laki</option>
-                                    <option value="Perempuan">Perempuan</option>
-                                    <option value="Tidak diketahui">Tidak diketahui</option> --}}
+                                  <select class="form-select @error('rw') is-invalid @enderror" id="rw" name="rw">
+                                    <option value="<?= old('rw') ? old('rw') : '' ; ?>" selected disabled>RW</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
+                                    @error('rw')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3 col-md-4 form-group">
-                                  <textarea type="textarea" class="form-control" id="alamat" placeholder="Alamat tambahan"></textarea>
+                                  <textarea type="textarea" class="form-control @error('add') is-invalid @enderror" name="add" id="alamat" placeholder="Alamat tambahan" required value="<?= old('add'); ?>"></textarea>
+                                  @error('add')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>
-                                
-                                  
                             </div>
-                          </form>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -29,10 +29,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
                     @foreach ($data as $d)
                         <tr>
-                            <td scope="row"><?= $i++; ?></td>
+                            <td scope="row">{{ $loop->iteration }}</td>
                             <td>{{ $d->NIK }}</td>
                             <td>{{ $d->nama }}</td>
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>

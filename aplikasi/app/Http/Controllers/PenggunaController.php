@@ -55,7 +55,35 @@ class PenggunaController extends Controller
      */
     public function store(StorepenggunaRequest $request)
     {
-        //
+
+        $validatedData = $request->validate([
+            'gambar' => 'file|image|max:4096',
+            'nik' => 'required|size:16|digits:16',
+            'nama' => 'required|max:50|string',
+            'tm_lahir' => 'required|max:50',
+            'tgl_lahir' => 'required|date',
+            'jk' => 'required',
+            'agama' => 'required',
+            'status' => 'required',
+            'goldar' => 'required',
+            'pekerjaan' => 'required|max:50',
+            'wn' => 'required',
+            'provinsi' => 'required|max:50',
+            'kab' => 'required|max:50',
+            'kec' => 'required|max:50',
+            'kel' => 'required|max:50',
+            'rt' => 'required|max:10',
+            'rw' => 'required|max:10',
+            'add' => 'required|max:50',
+        ]);
+
+        // $validatedData['password'] = bcrypt($validatedData['password']);
+
+        penduduk::create($validatedData);
+
+        $request->session()->flash('success_c', 'Add data successfull!');
+
+        return redirect('/admin');
     }
 
     /**

@@ -10,8 +10,8 @@
                     Hello, </i> {{ auth()->user()->name }}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                <li><a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa fa-gear"></i> Setting</a></li>
+                <li><a class="dropdown-item {{ Request::is('profile') ? 'active' : '' }}" href="#"><i class="fa fa-user"></i> Profile</a></li>
+                <li><a class="dropdown-item {{ Request::is('setting') ? 'active' : '' }}" href="#"><i class="fa fa-gear"></i> Setting</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li>
                     <form action="/logout" method="post">

@@ -26,7 +26,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $i = 1; ?>
                         @foreach ($data as $datas => $d)
                             <tr>
                                 <td scope="row">{{ $datas + $data->firstItem() }}</td>

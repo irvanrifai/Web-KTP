@@ -18,7 +18,7 @@ use App\Http\Controllers\PenggunaController;
 |
 */
 
-Route::get('/', [homeController::class, 'index']);
+Route::get('/', [homeController::class, 'index'])->middleware('guest');
 
 Route::get('/login', [loginController::class, 'index'])->name('login')->middleware('guest');
 
@@ -30,6 +30,8 @@ Route::get('/registrasi', [registrasiController::class, 'index'])->middleware('g
 
 Route::post('/registrasi', [registrasiController::class, 'store']);
 
-Route::get('/admin', [PenggunaController::class, "index"])->middleware('auth');
+Route::get('/admin', [PenggunaController::class, 'index'])->middleware('auth');
 
 Route::get('/user', [PendudukController::class, 'index'])->middleware('auth');
+
+Route::post('/PenggunaController/add', [PenggunaController::class, 'store']);
