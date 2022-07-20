@@ -109,7 +109,7 @@ class PendudukController extends Controller
      * @param  \App\Models\penduduk  $penduduk
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatependudukRequest $request, penduduk $penduduk)
+    public function update(UpdatependudukRequest $request, penduduk $penduduk, $id)
     {
         $rules = [
             'foto' => 'file|image|max:4096',
@@ -134,10 +134,11 @@ class PendudukController extends Controller
             $rules['NIK'] = 'required|size:16|digits:16|unique:penduduk';
         }
 
-        dd($validatedData = $request->validate($rules));
+        // dd($request->NIK, $penduduk->get('NIK'));
 
-        penduduk::where('id', $penduduk->id)
-            ->update($validatedData);
+        $validatedData = $request->validate($rules);
+
+        penduduk::where('id', $id)->update($validatedData);
 
         $request->session()->flash('success_u', 'Update data KTP successfull!');
 

@@ -75,6 +75,7 @@
     </div>
     @endif
 
+    {{-- dashboard info card --}}
     <div class="col">
         <div class="container-fluid">
             <div class="row">
@@ -120,6 +121,7 @@
 
 <hr>
 
+{{-- tabel data --}}
 <div class="row mt-4">
     <div class="col">
         <h3>Pengelolaan Data KTP</h3>
@@ -150,7 +152,8 @@
                     @foreach ($data as $d)
                         <tr>
                             <td scope="row">{{ $loop->iteration }}</td>
-                            <td><img src="https://source.unsplash.com/100x120/?man" alt=""></td>
+                            {{-- <td><img src="https://source.unsplash.com/100x120/?man" alt=""></td> --}}
+                            <td><img src="img/SD-default-image.png" width="100" height="110" alt=""></td>
                             <td>{{ $d->NIK }}</td>
                             <td>{{ $d->nama }}</td>
                             <td>{{ $d->tm_lahir }}, {{ $d->tgl_lahir }}</td>
@@ -437,12 +440,14 @@
                 {{-- @method('PATCH') --}}
                 @csrf
                 <input type="hidden" name="berlaku" id="berlaku" value="Seumur Hidup">
+                {{-- <input type="hidden" name="NIK" id="NIK" value="{{ $d->NIK }}"> --}}
                 <div class="modal-body">
                     <div class="mb-3 form-group">
                         <div class="row mb-3">
                             <label class="mb-2"><b>Pilih Foto</b></label>
                             <div class="col-sm-2">
-                                <img src="{{ old('foto', $d->foto, 'img/SD-default-image.png') }}" class="img-thumbnail img-preview">
+                                {{-- <img src="{{ old('foto', $d->foto, 'img/SD-default-image.png') }}" class="img-thumbnail img-preview"> --}}
+                                <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
                             <div class="col-md-4"><span class="text-danger">*</span>
                                 <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" value="{{ old('foto', $d->foto) }}" onchange="preview_img()">
@@ -740,7 +745,8 @@
                         <h6 class="text-uppercase fs-6">berlaku hingga  : seumur hidup</h6>
                     </div>
                     <div class="col-md-4">
-                        <img src="https://source.unsplash.com/200x240/?man" alt=""><br>
+                        {{-- <img src="https://source.unsplash.com/200x240/?man" alt=""><br> --}}
+                        <img src="img/SD-default-image.png" width="90" height="100" alt=""><br>
                         <div align="center">
                         <small class="text-uppercase">{{ $d->kab }}</small><br>
                         <small class="text-uppercase">{{ $d->created_at }}</small>
