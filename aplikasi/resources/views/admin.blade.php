@@ -190,13 +190,13 @@
                 <input type="hidden" name="berlaku" id="berlaku" value="Seumur Hidup">
                 <div class="modal-body">
                     <div class="mb-3 form-group">
-                        <div class="mb-3">
+                        <div class="row mb-3">
                             <label class="mb-2"><b>Pilih Foto</b></label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-2">
                                 <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
                             </div>
-                            <div class="mt-2 col-md-4">
-                                <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" value="<?= old('foto'); ?>" onchange="preview_img()">
+                            <div class="col-md-4"><span class="text-danger">*</span>
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" value="{{ old('foto') }}" onchange="preview_img()">
                                 @error('foto')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -208,8 +208,8 @@
                     <div class="row">
                             <div class="row mb-2 g-3">
                                 <div class="mb-3 col-md-3 form-group">
-                                  <label for="NIK" class="form-label">NIK</label>
-                                  <input type="number" class="form-control @error('NIK') is-invalid @enderror" name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required value="<?= old('NIK'); ?>">
+                                  <label for="NIK" class="form-label">NIK</label><span class="text-danger">*</span>
+                                  <input type="number" class="form-control @error('NIK') is-invalid @enderror" name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required value="{{ old('NIK') }}">
                                   @error('NIK')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -217,8 +217,8 @@
                                   @enderror
                                 </div>
                                 <div class="mb-3 col-md-3 form-group">
-                                  <label for="nama" class="form-label">Nama</label>
-                                  <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama lengkap" required value="<?= old('nama'); ?>">
+                                  <label for="nama" class="form-label">Nama</label><span class="text-danger">*</span>
+                                  <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama lengkap" required value="{{ old('nama') }}">
                                   @error('nama')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -226,8 +226,8 @@
                                   @enderror
                                 </div>  
                                 <div class="mb-3 col-md-3 form-group">
-                                  <label for="tm_lahir" class="form-label">Tempat lahir</label>
-                                  <input type="text" class="form-control @error('tm_lahir') is-invalid @enderror" name="tm_lahir" id="tm_lahir" placeholder="Jakarta" required value="<?= old('tm_lahir'); ?>">
+                                  <label for="tm_lahir" class="form-label">Tempat lahir</label><span class="text-danger">*</span>
+                                  <input type="text" class="form-control @error('tm_lahir') is-invalid @enderror" name="tm_lahir" id="tm_lahir" placeholder="Jakarta" required value="{{ old('tm_lahir') }}">
                                   @error('tm_lahir')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -235,8 +235,8 @@
                                   @enderror
                                 </div>
                                 <div class="mb-3 col-md-3 form-group">
-                                  <label for="tgl_lahir" class="form-label">Tanggal lahir</label>
-                                  <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" id="tgl_lahir" value="<?= old('tgl_lahir'); ?>">
+                                  <label for="tgl_lahir" class="form-label">Tanggal lahir</label><span class="text-danger">*</span>
+                                  <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" id="tgl_lahir" value="{{ old('tgl_lahir') }}">
                                   @error('tgl_lahir')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -245,9 +245,9 @@
                                 </div>
                                 
                                 <div class="mb-3 col-md-2 form-group">
-                                  <label for="jk" class="form-label">Jenis Kelamin</label>
+                                  <label for="jk" class="form-label">Jenis Kelamin</label><span class="text-danger">*</span>
                                   <select class="form-select @error('jk') is-invalid @enderror" id="jk" name="jk">
-                                  <option value="<?= old('jk') ? old('jk') : '' ; ?>" selected disabled>Pilih</option>
+                                  <option value="{{ old('jk') ? old('jk') : '' ; }}" selected disabled>Pilih</option>
                                   <option value="Laki-laki">Laki-laki</option>
                                   <option value="Perempuan">Perempuan</option>
                                   <option value="Tidak diketahui">Tidak diketahui</option>
@@ -260,9 +260,9 @@
                                 </div>
                           
                                 <div class="mb-3 col-md-2 form-group">
-                                  <label for="agama" class="form-label">Agama</label>
+                                  <label for="agama" class="form-label">Agama</label><span class="text-danger">*</span>
                                   <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama">
-                                    <option value="<?= old('agama') ? old('agama') : '' ; ?>" selected disabled>Pilih</option>
+                                    <option value="{{ old('agama') ? old('agama') : '' ; }}" selected disabled>Pilih</option>
                                     <option value="Islam">Islam</option>
                                     <option value="Kristen">Kristen</option>
                                     <option value="Katolik">Katolik</option>
@@ -280,9 +280,9 @@
                                 
                                 
                                 <div class="mb-3 col-md-2 form-group">
-                                  <label for="status" class="form-label">Status</label>
+                                  <label for="status" class="form-label">Status</label><span class="text-danger">*</span>
                                   <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
-                                    <option value="<?= old('status') ? old('status') : '' ; ?>" selected disabled>Pilih</option>
+                                    <option value="{{ old('status') ? old('status') : '' ; }}" selected disabled>Pilih</option>
                                     <option value="Belum kawin">Belum kawin</option>
                                     <option value="Kawin">Kawin</option>
                                     <option value="Cerai">Cerai</option>
@@ -295,9 +295,9 @@
                                 </div>
                           
                                 <div class="mb-3 col-md-2 form-group">
-                                  <label for="goldar" class="form-label">Gol. Darah</label>
+                                  <label for="goldar" class="form-label">Gol. Darah</label><span class="text-danger">*</span>
                                   <select class="form-select @error('goldar') is-invalid @enderror" id="goldar" name="goldar">
-                                    <option value="<?= old('goldar') ? old('goldar') : '' ; ?>" selected disabled>Pilih</option>
+                                    <option value="{{ old('goldar') ? old('goldar') : '' ; }}" selected disabled>Pilih</option>
                                     <option value="A">A</option>
                                     <option value="O">O</option>
                                     <option value="AB">AB</option>
@@ -312,8 +312,8 @@
                                 </div>
                           
                                 <div class="mb-3 col-md-3 form-group">
-                                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                    <input type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan" placeholder="Pengusaha" required value="<?= old('pekerjaan'); ?>">
+                                    <label for="pekerjaan" class="form-label">Pekerjaan</label><span class="text-danger">*</span>
+                                    <input type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan" placeholder="Pengusaha" required value="{{ old('pekerjaan') }}">
                                     @error('pekerjaan')
                                     <div class="invalid-feedback">
                                         {{ $message }}
@@ -324,9 +324,9 @@
                                 
                                 <label for="alamat" class="form-label">Alamat</label>
                           
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('wn') is-invalid @enderror" id="wn" name="wn">
-                                    <option value="<?= old('wn') ? old('wn') : '' ; ?>" selected disabled>Warga Negara</option>
+                                    <option value="{{ old('wn') ? old('wn') : '' ; }}" selected disabled>Warga Negara</option>
                                     <option value="WNI">WNI</option>
                                     <option value="WNA">WNA</option>
                                     </select>
@@ -337,9 +337,9 @@
                                     @enderror
                                 </div>
                           
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
-                                    <option value="<?= old('provinsi') ? old('provinsi') : '' ; ?>" selected disabled>Provinsi</option>
+                                    <option value="{{ old('provinsi') ? old('provinsi') : '' ; }}" selected disabled>Provinsi</option>
                                     <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
                                     @error('provinsi')
@@ -348,9 +348,9 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('kab') is-invalid @enderror" id="kab" name="kab">
-                                    <option value="<?= old('kab') ? old('kab') : '' ; ?>" selected disabled>Kabupaten/Kota</option>
+                                    <option value="{{ old('kab') ? old('kab') : '' ; }}" selected disabled>Kabupaten/Kota</option>
                                     <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
                                     @error('kab')
@@ -359,9 +359,9 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('kec') is-invalid @enderror" id="kec" name="kec">
-                                    <option value="<?= old('kec') ? old('kec') : '' ; ?>" selected disabled>Kecamatan</option>
+                                    <option value="{{ old('kec') ? old('kec') : '' ; }}" selected disabled>Kecamatan</option>
                                     <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
                                     @error('kec')
@@ -370,9 +370,9 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group">
+                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('kel') is-invalid @enderror" id="kel" name="kel">
-                                    <option value="<?= old('kel') ? old('kel') : '' ; ?>" selected disabled>Kel/Desa</option>
+                                    <option value="{{ old('kel') ? old('kel') : '' ; }}" selected disabled>Kel/Desa</option>
                                     <option value="Tidak diketahui">Tidak diketahui</option>
                                     </select>
                                     @error('kel')
@@ -381,9 +381,9 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-1 form-group">
+                                <div class="mb-3 col-md-1 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('rt') is-invalid @enderror" id="rt" name="rt">
-                                    <option value="<?= old('rt') ? old('rt') : '' ; ?>" selected disabled>RT</option>
+                                    <option value="{{ old('rt') ? old('rt') : '' ; }}" selected disabled>RT</option>
                                     <option value="Tidak diketahui">02</option>
                                     </select>
                                     @error('rt')
@@ -392,9 +392,9 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-1 form-group">
+                                <div class="mb-3 col-md-1 form-group"><span class="text-danger">*</span>
                                   <select class="form-select @error('rw') is-invalid @enderror" id="rw" name="rw">
-                                    <option value="<?= old('rw') ? old('rw') : '' ; ?>" selected disabled>RW</option>
+                                    <option value="{{ old('rw') ? old('rw') : '' ; }}" selected disabled>RW</option>
                                     <option value="Tidak diketahui">03</option>
                                     </select>
                                     @error('rw')
@@ -403,8 +403,8 @@
                                     </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4 form-group">
-                                  <textarea type="textarea" class="form-control @error('add') is-invalid @enderror" name="add" id="alamat" placeholder="Alamat tambahan" required value="<?= old('add'); ?>"></textarea>
+                                <div class="mb-3 col-md-4 form-group"><span class="text-danger">*</span>
+                                  <textarea type="textarea" class="form-control @error('add') is-invalid @enderror" name="add" id="alamat" placeholder="Alamat tambahan" required value="{{ old('add') }}"></textarea>
                                   @error('add')
                                   <div class="invalid-feedback">
                                       {{ $message }}
@@ -432,159 +432,245 @@
                 <h5 class="modal-title" id="editLabel">Edit data</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="/admin/update/<?= $d['id'];?>" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
-                <?= csrf_field(); ?>
-                <input type="hidden" name="kepemilikan" id="kepemilikan" value="BEM FKI UMS">
+            <form action="/PendudukController/{{ $d->id }}" method="POST" role="form" enctype="multipart/form-data" class="needs-validation">
+                @method('PUT')
+                {{-- @method('PATCH') --}}
+                @csrf
+                <input type="hidden" name="berlaku" id="berlaku" value="Seumur Hidup">
                 <div class="modal-body">
                     <div class="mb-3 form-group">
-                        <div class="mb-3">
+                        <div class="row mb-3">
                             <label class="mb-2"><b>Pilih Foto</b></label>
-                            <div class="col-sm-3">
-                                <img src="img/SD-default-image.png" class="img-thumbnail img-preview">
+                            <div class="col-sm-2">
+                                <img src="{{ old('foto', $d->foto, 'img/SD-default-image.png') }}" class="img-thumbnail img-preview">
                             </div>
-                            <div class="mt-2 col-md-4">
-                                <input class="form-control" type="file" id="foto" name="foto" value="<?= old('foto'); ?>" onchange="preview_img()">
+                            <div class="col-md-4"><span class="text-danger">*</span>
+                                <input class="form-control @error('foto') is-invalid @enderror" type="file" id="foto" name="foto" value="{{ old('foto', $d->foto) }}" onchange="preview_img()">
+                                @error('foto')
                                 <div class="invalid-feedback">
+                                    {{ $message }}
                                 </div>
-                                </div>
+                                @enderror
                             </div>
                         </div>
-                        <div class="row">
-                            <form>
-                                <div class="row mb-2 g-3">
-                                    <div class="mb-3 col-md-3 form-group">
-                                      <label for="nik" class="form-label">NIK</label>
-                                      <input type="number" class="form-control" id="nik" placeholder="Nomor Induk Kependudukan">
-                                    </div>
-                                    <div class="mb-3 col-md-3 form-group">
-                                      <label for="nama" class="form-label">Nama</label>
-                                      <input type="text" class="form-control" id="nama" placeholder="Nama lengkap">
-                                    </div>  
-                                    <div class="mb-3 col-md-3 form-group">
-                                      <label for="tm_lahir" class="form-label">Tempat lahir</label>
-                                      <input type="text" class="form-control" id="tm_lahir" placeholder="Jakarta">
-                                    </div>
-                                    <div class="mb-3 col-md-3 form-group">
-                                      <label for="tgl_lahir" class="form-label">Tanggal lahir</label>
-                                      <input type="date" class="form-control" id="tgl_lahir">
-                                    </div>
-                                    
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <label for="jk" class="form-label">Jenis Kelamin</label>
-                                      <select class="form-select" id="jk" name="jk">
-                                      <option value="" selected disabled>Pilih</option>
-                                      <option value="Laki-laki">Laki-laki</option>
-                                      <option value="Perempuan">Perempuan</option>
-                                      <option value="Tidak diketahui">Tidak diketahui</option>
-                                      </select>
-                                    </div>
-                              
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <label for="agama" class="form-label">Agama</label>
-                                      <select class="form-select" id="agama" name="agama">
-                                        <option value="" selected disabled>Pilih</option>
-                                        <option value="Islam">Islam</option>
-                                        <option value="Kristen">Kristen</option>
-                                        <option value="Katolik">Katolik</option>
-                                        <option value="Budha">Budha</option>
-                                        <option value="Hindu">Hindu</option>
-                                        <option value="Konghu chu">Konghu chu</option>
-                                        <option value="Lainnya">Lainnya</option>
-                                        </select>
-                                    </div>
-                                    
-                                    
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <label for="status" class="form-label">Status</label>
-                                      <select class="form-select" id="status" name="status">
-                                        <option value="" selected disabled>Pilih</option>
-                                        <option value="Belum kawin">Belum kawin</option>
-                                        <option value="Kawin">Kawin</option>
-                                        <option value="Cerai">Cerai</option>
-                                        </select>
-                                    </div>
-                              
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <label for="goldar" class="form-label">Gol. Darah</label>
-                                      <select class="form-select" id="goldar" name="goldar">
-                                        <option value="" selected disabled>Pilih</option>
-                                        <option value="A">A</option>
-                                        <option value="O">O</option>
-                                        <option value="AB">AB</option>
-                                        <option value="B">B</option>
-                                        <option value="-">-</option>
-                                        </select>
-                                    </div>
-                              
-                                      <div class="mb-3 col-md-3 form-group">
-                                        <label for="pekerjaan" class="form-label">Pekerjaan</label>
-                                        <input type="text" class="form-control" id="pekerjaan" placeholder="Pengusaha">
-                                      </div>
-                                      
-                                    
-                                    <label for="alamat" class="form-label">Alamat</label>
-                              
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>Warga Negara</option>
-                                        <option value="WNI">WNI</option>
-                                        <option value="WNA">WNA</option>
-                                        </select>
-                                    </div>
-                              
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>Provinsi</option>
-                                        {{-- <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                        <option value="Tidak diketahui">Tidak diketahui</option> --}}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>Kabupaten/Kota</option>
-                                        {{-- <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                        <option value="Tidak diketahui">Tidak diketahui</option> --}}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>Kecamatan</option>
-                                        {{-- <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                        <option value="Tidak diketahui">Tidak diketahui</option> --}}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>Kel/Desa</option>
-                                        {{-- <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                        <option value="Tidak diketahui">Tidak diketahui</option> --}}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-2 form-group">
-                                      <select class="form-select" id="jk" name="jk">
-                                        <option value="" selected disabled>RT/RW</option>
-                                        {{-- <option value="Laki-laki">Laki-laki</option>
-                                        <option value="Perempuan">Perempuan</option>
-                                        <option value="Tidak diketahui">Tidak diketahui</option> --}}
-                                        </select>
-                                    </div>
-                                    <div class="mb-3 col-md-4 form-group">
-                                      <textarea type="textarea" class="form-control" id="alamat" placeholder="Alamat tambahan"></textarea>
-                                    </div>
-                                    
-                                      
+                    </div>
+                    <div class="row">
+                            <div class="row mb-2 g-3">
+                                <div class="mb-3 col-md-3 form-group">
+                                  <label for="NIK" class="form-label">NIK</label><span class="text-danger">*</span>
+                                  <input type="number" class="form-control @error('NIK') is-invalid @enderror" name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required value="{{ old('NIK', $d->NIK) }}">
+                                  @error('NIK')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
                                 </div>
-                              </form>
-                        </div>
+                                <div class="mb-3 col-md-3 form-group">
+                                  <label for="nama" class="form-label">Nama</label><span class="text-danger">*</span>
+                                  <input type="text" class="form-control @error('nama') is-invalid @enderror" name="nama" id="nama" placeholder="Nama lengkap" required value="{{ old('nama', $d->nama) }}">
+                                  @error('nama')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
+                                </div>  
+                                <div class="mb-3 col-md-3 form-group">
+                                  <label for="tm_lahir" class="form-label">Tempat lahir</label><span class="text-danger">*</span>
+                                  <input type="text" class="form-control @error('tm_lahir') is-invalid @enderror" name="tm_lahir" id="tm_lahir" placeholder="Jakarta" required value="{{ old('tm_lahir', $d->tm_lahir) }}">
+                                  @error('tm_lahir')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
+                                </div>
+                                <div class="mb-3 col-md-3 form-group">
+                                  <label for="tgl_lahir" class="form-label">Tanggal lahir</label><span class="text-danger">*</span>
+                                  <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror" name="tgl_lahir" id="tgl_lahir" value="{{ old('tgl_lahir', $d->tgl_lahir) }}">
+                                  @error('tgl_lahir')
+                                  <div class="invalid-feedback">
+                                      {{ $message }}
+                                  </div>
+                                  @enderror
+                                </div>
+                                
+                                <div class="mb-3 col-md-2 form-group">
+                                  <label for="jk" class="form-label">Jenis Kelamin</label><span class="text-danger">*</span>
+                                  <select class="form-select @error('jk') is-invalid @enderror" id="jk" name="jk">
+                                  <option value="{{ old('jk', $d->jk) }}" selected disabled>{{ old('jk', $d->jk) }}</option>
+                                  <option value="Laki-laki">Laki-laki</option>
+                                  <option value="Perempuan">Perempuan</option>
+                                  <option value="Tidak diketahui">Tidak diketahui</option>
+                                  </select>
+                                  @error('jk')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                  @enderror
+                                </div>
+                          
+                                <div class="mb-3 col-md-2 form-group">
+                                  <label for="agama" class="form-label">Agama</label><span class="text-danger">*</span>
+                                  <select class="form-select @error('agama') is-invalid @enderror" id="agama" name="agama">
+                                    <option value="{{ old('agama', $d->agama) }}" selected disabled>{{ old('agama', $d->agama) }}</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Katolik">Katolik</option>
+                                    <option value="Budha">Budha</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Konghu chu">Konghu chu</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                    </select>
+                                    @error('agama')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                
+                                
+                                <div class="mb-3 col-md-2 form-group">
+                                  <label for="status" class="form-label">Status</label><span class="text-danger">*</span>
+                                  <select class="form-select @error('status') is-invalid @enderror" id="status" name="status">
+                                    <option value="{{ old('status', $d->status) }}" selected disabled>{{ old('status', $d->status) }}</option>
+                                    <option value="Belum kawin">Belum kawin</option>
+                                    <option value="Kawin">Kawin</option>
+                                    <option value="Cerai">Cerai</option>
+                                    </select>
+                                    @error('status')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                          
+                                <div class="mb-3 col-md-2 form-group">
+                                  <label for="goldar" class="form-label">Gol. Darah</label><span class="text-danger">*</span>
+                                  <select class="form-select @error('goldar') is-invalid @enderror" id="goldar" name="goldar">
+                                    <option value="{{ old('goldar', $d->goldar) }}" selected disabled>{{ old('goldar', $d->goldar) }}</option>
+                                    <option value="A">A</option>
+                                    <option value="O">O</option>
+                                    <option value="AB">AB</option>
+                                    <option value="B">B</option>
+                                    <option value="-">-</option>
+                                    </select>
+                                    @error('goldar')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                          
+                                <div class="mb-3 col-md-3 form-group">
+                                    <label for="pekerjaan" class="form-label">Pekerjaan</label><span class="text-danger">*</span>
+                                    <input type="text" class="form-control @error('pekerjaan') is-invalid @enderror" name="pekerjaan" id="pekerjaan" placeholder="Pengusaha" required value="{{ old('pekerjaan', $d->pekerjaan) }}">
+                                    @error('pekerjaan')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror  
+                                </div>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="wn" class="form-label">Warga negara</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('wn') is-invalid @enderror" id="wn" name="wn">
+                                    <option value="{{ old('wn', $d->wn) }}" selected disabled>{{ old('wn', $d->wn) }}</option>
+                                    <option value="WNI">WNI</option>
+                                    <option value="WNA">WNA</option>
+                                    </select>
+                                    @error('wn')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                          
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="provinsi" class="form-label">Provinsi</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('provinsi') is-invalid @enderror" id="provinsi" name="provinsi">
+                                    <option value="{{ old('provinsi', $d->provinsi) }}" selected disabled>{{ old('provinsi', $d->provinsi) }}</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    </select>
+                                    @error('provinsi')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kab" class="form-label">Kabupaten / Kota</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('kab') is-invalid @enderror" id="kab" name="kab">
+                                    <option value="{{ old('kab', $d->kab) }}" selected disabled>{{ old('kab', $d->kab) }}</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    </select>
+                                    @error('kab')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kec" class="form-label">Kecamatan</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('kec') is-invalid @enderror" id="kec" name="kec">
+                                    <option value="{{ old('kec', $d->kec) }}" selected disabled>{{ old('kec', $d->kec) }}</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    </select>
+                                    @error('kec')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kel" class="form-label">Kel / Desa</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('kel') is-invalid @enderror" id="kel" name="kel">
+                                    <option value="{{ old('kel', $d->kel) }}" selected disabled>{{ old('kel', $d->kel) }}</option>
+                                    <option value="Tidak diketahui">Tidak diketahui</option>
+                                    </select>
+                                    @error('kel')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-1 form-group">
+                                    <label for="rt" class="form-label">RT</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('rt') is-invalid @enderror" id="rt" name="rt">
+                                    <option value="{{ old('rt', $d->rt) }}" selected disabled>{{ old('rt', $d->rt) }}</option>
+                                    <option value="Tidak diketahui">02</option>
+                                    </select>
+                                    @error('rt')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-1 form-group">
+                                    <label for="rw" class="form-label">RW</label><span class="text-danger">*</span>
+                                    <select class="form-select @error('rw') is-invalid @enderror" id="rw" name="rw">
+                                    <option value="{{ old('rw', $d->rw) }}" selected disabled>{{ old('rw', $d->rw) }}</option>
+                                    <option value="Tidak diketahui">03</option>
+                                    </select>
+                                    @error('rw')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-4 form-group">
+                                    <label for="add" class="form-label">Alamat tambahan</label><span class="text-danger">*</span>
+                                    <textarea type="textarea" class="form-control @error('add') is-invalid @enderror" name="add" id="alamat" placeholder="Alamat tambahan" required value="{{ old('add', $d->add) }}">{{ old('add', $d->add) }}</textarea>
+                                    @error('add')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                            </div>
                     </div>
-                    <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
-                        <button type="submit" name="update" class="bi bi-pencil-square btn btn-warning"> Simpan</button>
-                    </div>
+                </div>
+                <div class="modal-footer">
+                    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
+                    <button type="submit" class="bi bi-plus-square btn btn-primary" id="btn_tambah"> Update</button>
+                </div>
             </div>
             </form>
         </div>
@@ -601,7 +687,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="/PendudukController/{{ $d->id }}" method="post" role="form" enctype="multipart/form-data">
+                    <form action="/PendudukController/{{ $d->id }}" method="post" enctype="multipart/form-data">
                         @method('delete')
                         @csrf
                         <div class="modal-body modal-lg">
@@ -615,7 +701,7 @@
                         </div>
                         <div class="modal-footer">
                             <!-- <button type="button" class="bi bi-close btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
-                            <button type="submit" name="delete" class="bi bi-trash btn btn-danger"> Hapus</button>
+                            <button name="delete" class="bi bi-trash btn btn-danger"> Hapus</button>
                         </div>
                     </form>
                 </div>
