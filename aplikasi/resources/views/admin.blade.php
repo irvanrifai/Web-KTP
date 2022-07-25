@@ -244,7 +244,7 @@
                                         class="text-danger">*</span>
                                     <input type="number" class="form-control @error('NIK') is-invalid @enderror"
                                         name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required
-                                        value="{{ old('NIK') }}">
+                                        maxlength="16" value="{{ old('NIK') }}">
                                     @error('NIK')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -382,7 +382,9 @@
 
                                 <label for="alamat" class="form-label">Alamat</label>
 
-                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="wn" class="form-label">Warga Negara</label><span
+                                        class="text-danger">*</span>
                                     <select class="form-select @error('wn') is-invalid @enderror" id="wn"
                                         name="wn">
                                         <option value="{{ old('wn') ? old('wn') : '' }}" selected disabled>Warga Negara
@@ -397,7 +399,9 @@
                                     @enderror
                                 </div>
 
-                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="provinsi" class="form-label">Provinsi</label><span
+                                        class="text-danger">*</span>
                                     <select class="form-select @error('provinsi') is-invalid @enderror" id="provinsi"
                                         name="provinsi">
                                         <option value="{{ old('provinsi') ? old('provinsi') : '' }}" selected disabled>
@@ -410,7 +414,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kab" class="form-label">Kabupaten</label><span
+                                        class="text-danger">*</span>
                                     <select class="form-select @error('kab') is-invalid @enderror" id="kab"
                                         name="kab">
                                         <option value="{{ old('kab') ? old('kab') : '' }}" selected disabled>
@@ -423,7 +429,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kec" class="form-label">Kecamatan</label><span
+                                        class="text-danger">*</span>
                                     <select class="form-select @error('kec') is-invalid @enderror" id="kec"
                                         name="kec">
                                         <option value="{{ old('kec') ? old('kec') : '' }}" selected disabled>Kecamatan
@@ -436,7 +444,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-2 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-2 form-group">
+                                    <label for="kel" class="form-label">Kelurahan / Desa</label><span
+                                        class="text-danger">*</span>
                                     <select class="form-select @error('kel') is-invalid @enderror" id="kel"
                                         name="kel">
                                         <option value="{{ old('kel') ? old('kel') : '' }}" selected disabled>Kel/Desa
@@ -449,7 +459,8 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-1 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-1 form-group">
+                                    <label for="rt" class="form-label">RT</label><span class="text-danger">*</span>
                                     <select class="form-select @error('rt') is-invalid @enderror" id="rt"
                                         name="rt">
                                         <option value="{{ old('rt') ? old('rt') : '' }}" selected disabled>RT</option>
@@ -461,7 +472,8 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-1 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-1 form-group">
+                                    <label for="rw" class="form-label">RW</label><span class="text-danger">*</span>
                                     <select class="form-select @error('rw') is-invalid @enderror" id="rw"
                                         name="rw">
                                         <option value="{{ old('rw') ? old('rw') : '' }}" selected disabled>RW</option>
@@ -473,7 +485,9 @@
                                         </div>
                                     @enderror
                                 </div>
-                                <div class="mb-3 col-md-4 form-group"><span class="text-danger">*</span>
+                                <div class="mb-3 col-md-4 form-group">
+                                    <label for="add" class="form-label">Alamat tambahan</label><span
+                                        class="text-danger">*</span>
                                     <textarea type="textarea" class="form-control @error('add') is-invalid @enderror" name="add" id="alamat"
                                         placeholder="Alamat tambahan" required value="{{ old('add') }}"></textarea>
                                     @error('add')
@@ -487,7 +501,8 @@
                     </div>
                     <div class="modal-footer">
                         <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button> -->
-                        <button type="submit" class="bi bi-plus-square btn btn-primary" id="btn_tambah"> Tambah</button>
+                        <button type="submit" class="bi bi-plus-square btn btn-primary" id="btn_tambah"><i
+                                class="fa fa-plus"></i> Tambah</button>
                     </div>
                 </form>
             </div>
@@ -537,7 +552,7 @@
                                             class="text-danger">*</span>
                                         <input type="number" class="form-control @error('NIK') is-invalid @enderror"
                                             name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required
-                                            value="{{ old('NIK', $d->NIK) }}">
+                                            maxlength="16" value="{{ old('NIK', $d->NIK) }}">
                                         @error('NIK')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -887,7 +902,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>

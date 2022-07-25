@@ -15,15 +15,15 @@ class loginController extends Controller
     public function index()
     {
         return view('login', [
-            "title" => "E-I KTP | Login"
+            'title' => 'E-I KTP | Login',
         ]);
     }
 
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email:dns',
-            'password' => 'required|min:8'
+            'email' => 'required|email',
+            'password' => 'required|min:8',
         ]);
 
         if (Auth::attempt($credentials)) {
@@ -34,9 +34,11 @@ class loginController extends Controller
             return redirect()->intended('/PendudukController');
         }
 
-        return back()->with([
-            'error_login' => 'Login failed!',
-        ])->onlyInput('email');
+        return back()
+            ->with([
+                'error_login' => 'Login failed!',
+            ])
+            ->onlyInput('email');
     }
 
     public function logout(Request $request)
