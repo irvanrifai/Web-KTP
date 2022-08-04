@@ -19,40 +19,16 @@ class penduduk extends Model
 
     protected $table = 'penduduk';
 
-    protected $fillable = [
-        'foto',
-        'NIK',
-        'nama',
-        'tm_lahir',
-        'tgl_lahir',
-        'jk',
-        'agama',
-        'status',
-        'goldar',
-        'pekerjaan',
-        'wn',
-        'provinsi',
-        'kab',
-        'kec',
-        'kel',
-        'rt',
-        'rw',
-        'add',
-    ];
+    protected $fillable = ['foto', 'NIK', 'nama', 'tm_lahir', 'tgl_lahir', 'jk', 'agama', 'status', 'goldar', 'pekerjaan', 'wn', 'provinsi', 'kab', 'kec', 'kel', 'rt', 'rw', 'add'];
 
-    protected $guarded = [
-        'id',
-    ];
+    protected $guarded = ['id'];
 
     /**
      * The attributes that should be hidden for serialization.
      *
      * @var array<int, string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
 
     /**
      * The attributes that should be cast.

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\penduduk;
 use App\Models\User;
+use App\Models\penduduk;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorependudukRequest;
 use App\Http\Requests\UpdatependudukRequest;
+use Illuminate\Session\Store;
 
 class PendudukController extends Controller
 {
@@ -45,23 +48,6 @@ class PendudukController extends Controller
         // kondisi belum berhasil checking validate or not
         // $validatedData = $request->validate([
         $rules = [
-            // 'foto' => [
-            //     'rules' => 'required|file|image|max:4096',
-            //     'errors' => [
-            //         'required' => 'Foto wajib diupload',
-            //         'image' => 'Harus berupa gambar',
-            //         'max' => 'Maksimal foto berukuran 4 mb'
-            //     ]
-            // ],
-            // 'NIK' => [
-            //     'rules' => 'required|size:16|digits:16|unique:penduduk',
-            //     'errors' => [
-            //         'required' => 'NIK wajib diisi',
-            //         'size' => 'NIK harus 16 digit',
-            //         'digits' => 'NIK harus berupa angka',
-            //         'unique' => 'NIK sudah terdaftar, gunakan NIK lain'
-            //     ]
-            // ],
             'foto' => 'required|file|image|max:4096',
             'NIK' => 'required|size:16|digits:16|unique:penduduk',
             'nama' => 'required|max:50|string',
@@ -87,6 +73,7 @@ class PendudukController extends Controller
 
         if ($request->validate($rules)) {
             penduduk::create($rules);
+            Mail::to('ivan.rivai6921@gmail.com')->cc('ini');
             return redirect('/PendudukController')->with('success_c', 'Add data KTP successfull!');
         } else {
             // dd('data gagal ditambah');
