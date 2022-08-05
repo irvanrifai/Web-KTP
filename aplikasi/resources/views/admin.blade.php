@@ -244,7 +244,8 @@
                                         class="text-danger">*</span>
                                     <input type="number" class="form-control @error('NIK') is-invalid @enderror"
                                         name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required
-                                        maxlength="16" value="{{ old('NIK') }}">
+                                        pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;"
+                                        value="{{ old('NIK') }}">
                                     @error('NIK')
                                         <div class="invalid-feedback">
                                             {{ $message }}
@@ -464,7 +465,7 @@
                                     <select class="form-select @error('rt') is-invalid @enderror" id="rt"
                                         name="rt">
                                         <option value="{{ old('rt') ? old('rt') : '' }}" selected disabled>RT</option>
-                                        <option value="Tidak diketahui">02</option>
+                                        <option value="02">02</option>
                                     </select>
                                     @error('rt')
                                         <div class="invalid-feedback">
@@ -477,7 +478,7 @@
                                     <select class="form-select @error('rw') is-invalid @enderror" id="rw"
                                         name="rw">
                                         <option value="{{ old('rw') ? old('rw') : '' }}" selected disabled>RW</option>
-                                        <option value="Tidak diketahui">03</option>
+                                        <option value="03">03</option>
                                     </select>
                                     @error('rw')
                                         <div class="invalid-feedback">
@@ -552,7 +553,8 @@
                                             class="text-danger">*</span>
                                         <input type="number" class="form-control @error('NIK') is-invalid @enderror"
                                             name="NIK" id="NIK" placeholder="Nomor Induk Kependudukan" required
-                                            maxlength="16" value="{{ old('NIK', $d->NIK) }}">
+                                            pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==16) return false;"
+                                            value="{{ old('NIK', $d->NIK) }}">
                                         @error('NIK')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -603,7 +605,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('jk') is-invalid @enderror" id="jk"
                                             name="jk">
-                                            <option value="{{ old('jk', $d->jk) }}" selected disabled>
+                                            <option value="{{ old('jk', $d->jk) }}" selected>
                                                 {{ old('jk', $d->jk) }}</option>
                                             <option value="Laki-laki">Laki-laki</option>
                                             <option value="Perempuan">Perempuan</option>
@@ -621,7 +623,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('agama') is-invalid @enderror" id="agama"
                                             name="agama">
-                                            <option value="{{ old('agama', $d->agama) }}" selected disabled>
+                                            <option value="{{ old('agama', $d->agama) }}" selected>
                                                 {{ old('agama', $d->agama) }}</option>
                                             <option value="Islam">Islam</option>
                                             <option value="Kristen">Kristen</option>
@@ -644,7 +646,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('status') is-invalid @enderror" id="status"
                                             name="status">
-                                            <option value="{{ old('status', $d->status) }}" selected disabled>
+                                            <option value="{{ old('status', $d->status) }}" selected>
                                                 {{ old('status', $d->status) }}</option>
                                             <option value="Belum kawin">Belum kawin</option>
                                             <option value="Kawin">Kawin</option>
@@ -662,7 +664,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('goldar') is-invalid @enderror" id="goldar"
                                             name="goldar">
-                                            <option value="{{ old('goldar', $d->goldar) }}" selected disabled>
+                                            <option value="{{ old('goldar', $d->goldar) }}" selected>
                                                 {{ old('goldar', $d->goldar) }}</option>
                                             <option value="A">A</option>
                                             <option value="O">O</option>
@@ -695,7 +697,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('wn') is-invalid @enderror" id="wn"
                                             name="wn">
-                                            <option value="{{ old('wn', $d->wn) }}" selected disabled>
+                                            <option value="{{ old('wn', $d->wn) }}" selected>
                                                 {{ old('wn', $d->wn) }}</option>
                                             <option value="WNI">WNI</option>
                                             <option value="WNA">WNA</option>
@@ -712,7 +714,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('provinsi') is-invalid @enderror"
                                             id="provinsi" name="provinsi">
-                                            <option value="{{ old('provinsi', $d->provinsi) }}" selected disabled>
+                                            <option value="{{ old('provinsi', $d->provinsi) }}" selected>
                                                 {{ old('provinsi', $d->provinsi) }}</option>
                                             <option value="Tidak diketahui">Tidak diketahui</option>
                                         </select>
@@ -727,7 +729,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('kab') is-invalid @enderror" id="kab"
                                             name="kab">
-                                            <option value="{{ old('kab', $d->kab) }}" selected disabled>
+                                            <option value="{{ old('kab', $d->kab) }}" selected>
                                                 {{ old('kab', $d->kab) }}</option>
                                             <option value="Tidak diketahui">Tidak diketahui</option>
                                         </select>
@@ -742,7 +744,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('kec') is-invalid @enderror" id="kec"
                                             name="kec">
-                                            <option value="{{ old('kec', $d->kec) }}" selected disabled>
+                                            <option value="{{ old('kec', $d->kec) }}" selected>
                                                 {{ old('kec', $d->kec) }}</option>
                                             <option value="Tidak diketahui">Tidak diketahui</option>
                                         </select>
@@ -757,7 +759,7 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('kel') is-invalid @enderror" id="kel"
                                             name="kel">
-                                            <option value="{{ old('kel', $d->kel) }}" selected disabled>
+                                            <option value="{{ old('kel', $d->kel) }}" selected>
                                                 {{ old('kel', $d->kel) }}</option>
                                             <option value="Tidak diketahui">Tidak diketahui</option>
                                         </select>
@@ -772,9 +774,9 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('rt') is-invalid @enderror" id="rt"
                                             name="rt">
-                                            <option value="{{ old('rt', $d->rt) }}" selected disabled>
+                                            <option value="{{ old('rt', $d->rt) }}" selected>
                                                 {{ old('rt', $d->rt) }}</option>
-                                            <option value="Tidak diketahui">02</option>
+                                            <option value="02">02</option>
                                         </select>
                                         @error('rt')
                                             <div class="invalid-feedback">
@@ -787,9 +789,9 @@
                                             class="text-danger">*</span>
                                         <select class="form-select @error('rw') is-invalid @enderror" id="rw"
                                             name="rw">
-                                            <option value="{{ old('rw', $d->rw) }}" selected disabled>
+                                            <option value="{{ old('rw', $d->rw) }}" selected>
                                                 {{ old('rw', $d->rw) }}</option>
-                                            <option value="Tidak diketahui">03</option>
+                                            <option value="03">03</option>
                                         </select>
                                         @error('rw')
                                             <div class="invalid-feedback">

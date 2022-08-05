@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Requests\StorependudukRequest;
 use App\Http\Requests\UpdatependudukRequest;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Session\Store;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class PendudukController extends Controller
 {
@@ -45,9 +47,7 @@ class PendudukController extends Controller
      */
     public function store(StorependudukRequest $request)
     {
-        // kondisi belum berhasil checking validate or not
-        // $validatedData = $request->validate([
-        $rules = [
+        $validator = FacadesValidator::make($request->all(), [
             'foto' => 'required|file|image|max:4096',
             'NIK' => 'required|size:16|digits:16|unique:penduduk',
             'nama' => 'required|max:50|string',
@@ -66,22 +66,19 @@ class PendudukController extends Controller
             'rt' => 'required',
             'rw' => 'required',
             'add' => 'required|max:50',
-        ];
+            // ]);
+        ]);
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
         // $validatedData['user_id'] = auth()->user()->id;
 
-        if ($request->validate($rules)) {
-            penduduk::create($rules);
-            Mail::to('ivan.rivai6921@gmail.com')->cc('ini');
-            return redirect('/PendudukController')->with('success_c', 'Add data KTP successfull!');
+        // if ($request->validate($rules)) {
+        if ($validator->fails()) {
+            return redirect('/PendudukController')->withInput()->withErrors($validator)->with('failed_c', 'Add data KTP unsuccessfull!');
         } else {
-            // dd('data gagal ditambah');
-            $request->session()->flash('failed_c', 'Add data KTP unsuccessfull!');
-            return redirect('/PendudukController')->withInput()->withErrors($request->validated($rules));
+            penduduk::create($validator->validate());
+            return redirect('/PendudukController')->with('success_c', 'Add data KTP successfull!');
         }
-        // $request->session()->flash('success_c', 'Add data KTP successfull!');
-        // return redirect('/PendudukController');
     }
 
     /**
@@ -104,7 +101,7 @@ class PendudukController extends Controller
     public function edit(penduduk $penduduk)
     {
         return view('admin', [
-            'data' => $penduduk
+            'warga' => penduduk::all()
         ]);
     }
 
@@ -117,8 +114,9 @@ class PendudukController extends Controller
      */
     public function update(UpdatependudukRequest $request, penduduk $penduduk, $id)
     {
-        $rules = [
+        $validator = FacadesValidator::make($request->all(), [
             'foto' => 'required|file|image|max:4096',
+            'NIK' => 'required|size:16|digits:16',
             'nama' => 'required|max:50|string',
             'tm_lahir' => 'required|max:50',
             'tgl_lahir' => 'required|date',
@@ -135,40 +133,20 @@ class PendudukController extends Controller
             'rt' => 'required',
             'rw' => 'required',
             'add' => 'required|max:50',
-        ];
+        ]);
         // kondisi untuk cek NIK belum jalan
         if ($request->NIK != $penduduk->NIK) {
             $rules['NIK'] = 'required|size:16|digits:16|unique:penduduk';
         }
 
-        // dd($request->NIK, $penduduk->get('NIK'));
+        // dd($request->NIK, $penduduk->all());
 
-        $validatedData = $request->validate($rules);
-
-        penduduk::where('id', $id)->update($validatedData);
-
-        $request->session()->flash('success_u', 'Update data KTP successfull!');
-
-        return redirect('/PendudukController');
-
-        // if (!$validatedData = $request->validate($rules)) {
-        //     dd('data gagal ditambah');
-        //     $request->session()->flash('failed_u', 'Update data KTP unsuccessfull!');
-
-        //     return redirect('/PendudukController')->withInput();
-        // };
-
-
-        // // $validatedData['password'] = bcrypt($validatedData['password']);
-        // // $validatedData['user_id'] = auth()->user()->id;
-
-        // penduduk::where('id', $id)
-        //     ->update($validatedData);
-
-        // $request->session()->flash('success_u', 'Update data KTP successfull!');
-
-        // // return redirect('/admin')->with('success_c', 'Add data KTP successfull!');
-        // return redirect('/PendudukController');
+        if ($validator->fails()) {
+            return redirect('/PendudukController')->withInput()->withErrors($validator)->with('failed_u', 'Update data KTP unsuccessfull!');
+        } else {
+            penduduk::where('id', $id)->update($validator->validate());
+            return redirect('/PendudukController')->with('success_u', 'Update data KTP successfull!');
+        }
     }
 
     /**
