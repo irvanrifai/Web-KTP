@@ -101,7 +101,8 @@ class PendudukController extends Controller
     public function edit(penduduk $penduduk)
     {
         return view('admin', [
-            'warga' => penduduk::all()
+            'warga' => penduduk::all(),
+            'penduduk' => $penduduk
         ]);
     }
 
@@ -115,7 +116,7 @@ class PendudukController extends Controller
     public function update(UpdatependudukRequest $request, penduduk $penduduk, $id)
     {
         $validator = FacadesValidator::make($request->all(), [
-            'foto' => 'required|file|image|max:4096',
+            'foto' => 'required|image|file|max:2048',
             'NIK' => 'required|size:16|digits:16',
             'nama' => 'required|max:50|string',
             'tm_lahir' => 'required|max:50',
@@ -139,7 +140,8 @@ class PendudukController extends Controller
             $rules['NIK'] = 'required|size:16|digits:16|unique:penduduk';
         }
 
-        // dd($request->NIK, $penduduk->all());
+        // dd($penduduk->get('NIK'));
+        // dd($penduduk->NIK);
 
         if ($validator->fails()) {
             return redirect('/PendudukController')->withInput()->withErrors($validator)->with('failed_u', 'Update data KTP unsuccessfull!');

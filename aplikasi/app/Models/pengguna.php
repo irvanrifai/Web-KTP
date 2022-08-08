@@ -9,6 +9,12 @@ class pengguna extends Model
 {
     use HasFactory;
 
+    protected $table = 'pengguna';
+
+    protected $fillable = ['nama', 'tgl_lahir', 'alamat'];
+
+    protected $guarded = ['id'];
+
     public function scopeFind($query)
     {
         // 

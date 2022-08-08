@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\pengguna;
-use App\Models\penduduk;
 use App\Models\User;
+use App\Models\penduduk;
+use App\Models\pengguna;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Validator as FacadesValidator;
 
 class PenggunaController extends Controller
 {
@@ -18,10 +20,10 @@ class PenggunaController extends Controller
      */
     public function index()
     {
-        return view('admin', [
-            "title" => "Web E-I KTP | Admin",
-            "data" => penduduk::latest()->get(),
-            "jumlahData" => penduduk::all()->count(),
+        return view('pengguna', [
+            "title" => "Web E-I KTP | Pengguna",
+            "data" => pengguna::latest()->get(),
+            "jumlahData" => pengguna::all()->count(),
             "userLoggedIn" => User::all()->count()
         ]);
     }
@@ -33,7 +35,7 @@ class PenggunaController extends Controller
      */
     public function create()
     {
-        return view('admin');
+        return view('pengguna');
     }
 
     /**
@@ -45,36 +47,21 @@ class PenggunaController extends Controller
     public function store(StorepenggunaRequest $request)
     {
 
-        $validatedData = $request->validate([
-            'foto' => 'file|image|max:4096',
-            'NIK' => 'required|size:16|digits:16|unique:penduduk,NIK',
+        $validator = FacadesValidator::make($request->all(), [
             'nama' => 'required|max:50|string',
-            'tm_lahir' => 'required|max:50',
             'tgl_lahir' => 'required|date',
-            'jk' => 'required',
-            'agama' => 'required',
-            'status' => 'required',
-            'goldar' => 'required',
-            'pekerjaan' => 'required|max:50',
-            'wn' => 'required',
-            'provinsi' => 'required|max:50',
-            'kab' => 'required|max:50',
-            'kec' => 'required|max:50',
-            'kel' => 'required|max:50',
-            'rt' => 'required|max:10',
-            'rw' => 'required|max:10',
-            'add' => 'required|max:50',
+            'alamat' => 'required|max:50',
         ]);
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
-        $validatedData['user_id'] = auth()->user()->id;
+        // $validatedData['user_id'] = auth()->user()->id;
 
-        penduduk::create($validatedData);
-
-        $request->session()->flash('success_c', 'Add data KTP successfull!');
-
-        // return redirect('/admin')->with('success_c', 'Add data KTP successfull!');
-        return redirect('/admin');
+        if ($validator->fails()) {
+            return redirect('/PenggunaController')->withInput()->withErrors($validator)->with('failed_c', 'Add data pengguna unsuccessfull!');
+        } else {
+            pengguna::create($validator->validate());
+            return redirect('/PenggunaController')->with('success_c', 'Add data pengguna successfull!');
+        }
     }
 
     /**
@@ -96,7 +83,9 @@ class PenggunaController extends Controller
      */
     public function edit(pengguna $pengguna)
     {
-        //
+        return view('pengguna', [
+            'pengguna' => $pengguna
+        ]);
     }
 
     /**
@@ -106,9 +95,23 @@ class PenggunaController extends Controller
      * @param  \App\Models\pengguna  $pengguna
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatepenggunaRequest $request, pengguna $pengguna)
+    public function update(UpdatepenggunaRequest $request, pengguna $pengguna, $id)
     {
-        //
+        $validator = FacadesValidator::make($request->all(), [
+            'nama' => 'required|max:50|string',
+            'tgl_lahir' => 'required|date',
+            'alamat' => 'required|max:50',
+        ]);
+
+        // $validatedData['password'] = bcrypt($validatedData['password']);
+        // $validator['user_id'] = auth()->user()->id;
+
+        if ($validator->fails()) {
+            return redirect('/PenggunaController')->withInput()->withErrors($validator)->with('failed_u', 'Update data pengguna unsuccessfull!');
+        } else {
+            pengguna::where('id', $id)->update($validator->validate());
+            return redirect('/PenggunaController')->with('success_u', 'Update data pengguna successfull!');
+        }
     }
 
     /**
@@ -117,14 +120,16 @@ class PenggunaController extends Controller
      * @param  \App\Models\pengguna  $pengguna
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pengguna $pengguna)
+    public function destroy(pengguna $pengguna, $id)
     {
-        //
+        pengguna::destroy($pengguna->id, $id);
+
+        return redirect('/PenggunaController')->with('success_d', 'Delete data pengguna successfull!');
     }
 
     public function jumlahData()
     {
-        $jumlah = collect(penduduk::all());
+        $jumlah = collect(pengguna::all());
         return $jumlah->count();
     }
 }
