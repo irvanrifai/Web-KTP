@@ -38,3 +38,5 @@ Route::resource('/PendudukController', PendudukController::class)->middleware('a
 Route::resource('/PenggunaController', PenggunaController::class)->middleware('auth');
 
 Route::get('/getDataPengguna', [PenggunaController::class, 'dataPengguna'])->name('datatable.pengguna');
+Route::post('/getDataPengguna', [PenggunaController::class, 'store'])->name('datatable.pengguna');
+Route::post('/getDataPengguna', [PenggunaController::class, 'edit'])->name('datatable.pengguna');

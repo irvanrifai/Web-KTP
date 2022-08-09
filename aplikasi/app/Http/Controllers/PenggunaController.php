@@ -8,7 +8,8 @@ use App\Models\pengguna;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
-use Clockwork\Request\Request;
+// use Clockwork\Request\Request;
+use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use Yajra\DataTables\DataTablesServiceProvider;
@@ -23,9 +24,19 @@ class PenggunaController extends Controller
      */
     public function index(Request $request)
     {
-        // if ($request) {
-        //     return DataTables::of(pengguna::latest()->get())->make(true)
-        // }
+        if ($request->ajax()) {
+            $data = pengguna::latest()->get();
+            return DataTables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
         return view('pengguna', [
             "title" => "Web Pengguna",
             "data" => pengguna::latest()->get(),
@@ -69,6 +80,12 @@ class PenggunaController extends Controller
             pengguna::create($validator->validate());
             return redirect('/PenggunaController')->with('success_c', 'Add data pengguna successfull!');
         }
+
+        pengguna::updateOrCreate(
+            ['id' => $request->data_id],
+            ['nama' => $request->name, 'tgl_lahir' => $request->tgl_lahir, 'alamat' => $request->alamat]
+        );
+        return response()->json(['success' => 'Data Pengguna Berhasil ditambah']);
     }
 
     /**
@@ -131,7 +148,10 @@ class PenggunaController extends Controller
     {
         pengguna::destroy($pengguna->id, $id);
 
-        return redirect('/PenggunaController')->with('success_d', 'Delete data pengguna successfull!');
+        // return redirect('/PenggunaController')->with('success_d', 'Delete data pengguna successfull!');
+
+        // pengguna::find($id)->delete();
+        return response()->json(['success', 'Data pengguna berhasil dihapus']);
     }
 
     public function jumlahData()
@@ -143,7 +163,36 @@ class PenggunaController extends Controller
     public function dataPengguna()
     {
         $data = pengguna::latest()->get();
-        return DataTables::of($data)->make(true);
+        return DataTables::of($data)
+            ->addColumn('aksi_e', function ($data) {
+                $btn_edit = '<a data-bs-toggle="modal" data-bs-target="#edit<?= $d ?>"><span
+            class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>';
+                return $btn_edit;
+            })
+            ->addColumn('aksi_d', function ($data) {
+                $btn_delete = '<a data-bs-toggle="modal" class="mx-1" data-bs-target="#hapus<?= $d ?>"><span class="badge bg-danger"><i
+                class="fa fa-trash"></i></span></a>';
+                return $btn_delete;
+            })
+            ->addColumn('aksi', function ($data) {
+                $btn = '<div class="d-flex">
+                <a data-bs-toggle="modal" data-bs-target="#edit<?= $d ?>"><span
+                        class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>
+                <a data-bs-toggle="modal" class="mx-1"
+                    data-bs-target="#hapus<?= $d ?>"><span class="badge bg-danger"><i
+                            class="fa fa-trash"></i></span></a>
+            </div>';
+                return $btn;
+            })
+            ->addIndexColumn()
+            ->addColumn('action', function ($data) {
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+
+                $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                return $btn;
+            })
+            ->rawColumns(['aksi_e', 'aksi_d', 'aksi', 'action'])
+            ->make(true);
         // return DataTables::of($data)->toJson();
     }
 }

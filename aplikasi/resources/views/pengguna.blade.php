@@ -179,6 +179,10 @@
             </div>
             <hr>
             <h4 class="mt-2">Using Datatable Laravel</h4>
+            <a type="button" href="javascript:void(0)" class="btn btn-primary my-3" id="createNewData"><i
+                    class="fa fa-plus"></i>
+                Tambah data
+            </a>
             <div class="table-responsive">
                 <table id="tb_pengguna" class="table">
                     <thead>
@@ -187,7 +191,8 @@
                             <th scope="col">Nama</th>
                             <th scope="col">Alamat</th>
                             <th scope="col">Tgl Lahir</th>
-                            <th scope="col">Aksi</th>
+                            {{-- <th scope="col">Aksi</th> --}}
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                 </table>
@@ -195,13 +200,82 @@
         </div>
     </div>
 
+
+    {{-- modal untuk datatable --}}
+    <div class="modal fade" id="ajaxModel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modelHeading"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form novalidate action="/PenggunaController" role="form" method="POST"
+                    enctype="multipart/form-data" id="form_data" class="needs-validation">
+                    @csrf
+                    <input type="hidden" name="data_id" id="data_id">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="row mb-2 g-3">
+                                <div class="mb-3 col-md-3 form-group">
+                                    <label for="nama" class="form-label">Nama</label><span
+                                        class="text-danger">*</span>
+                                    <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                        name="nama" id="nama" placeholder="Nama lengkap" required
+                                        value="{{ old('nama') }}">
+                                    @error('nama')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-3 form-group">
+                                    <label for="tgl_lahir" class="form-label">Tanggal lahir</label><span
+                                        class="text-danger">*</span>
+                                    <input type="date" class="form-control @error('tgl_lahir') is-invalid @enderror"
+                                        name="tgl_lahir" id="tgl_lahir" value="{{ old('tgl_lahir') }}">
+                                    @error('tgl_lahir')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-md-4 form-group">
+                                    <label for="alamat" class="form-label">Alamat</label><span
+                                        class="text-danger">*</span>
+                                    <textarea type="textarea" class="form-control @error('alamat') is-invalid @enderror" name="alamat" id="alamat"
+                                        placeholder="Alamat tambahan" required value="{{ old('alamat') }}"></textarea>
+                                    @error('alamat')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="bi bi-plus-square btn btn-primary" id="saveBtn"><i
+                                class="fa fa-plus"></i> </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    {{-- script datatables CRUD --}}
     <script type="text/javascript">
         $(function() {
-            $('#tb_pengguna').DataTable({
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            var table = $('#tb_pengguna').DataTable({
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                // ajax: '{!! route('datatable.pengguna') !!}',
                 ajax: '{{ route('datatable.pengguna') }}',
                 // {
                 //     url: '{{ url('/PenggunaController') }}',
@@ -212,30 +286,95 @@
                         }
                     },
                     {
-                        data: 'nama'
+                        data: 'nama',
+                        name: 'nama'
                     },
                     {
-                        data: 'alamat'
+                        data: 'alamat',
+                        name: 'alamat'
                     },
                     {
-                        data: 'tgl_lahir'
+                        data: 'tgl_lahir',
+                        name: 'tgl_lahir'
                     },
                     {
-                        "render": function(data, type, row) {
-                            return "<span class='badge bg-danger'>Aksi</span>"
-                        }
-                    }
+                        data: 'action',
+                        name: 'action',
+                        title: 'Aksi',
+                        searchable: false,
+                        orderable: false
+                    },
                 ],
+            });
+            $('#createNewData').click(function() {
+                $('#saveBtn').html("Tambah");
+                $('#data_id').val('');
+                $('#form_data').trigger("reset");
+                $('#modelHeading').html("Create New Data");
+                $('#ajaxModel').modal('show');
+            });
+
+            $('body').on('click', '.editItem', function() {
+                var data_id = $(this).data('id');
+                $.get("{{ route('PenggunaController.index') }}" + '/' + data_id + '/edit', function(data) {
+                    $('#modelHeading').html("Edit Item");
+                    $('#saveBtn').html("edit-user");
+                    $('#ajaxModel').modal('show');
+                    $('#data_id').val(data.id);
+                    $('#nama').val(data.nama);
+                    $('#tgl_lahir').val(data.tgl_lahir);
+                    $('#alamat').val(data.alamat);
+                })
+            });
+
+            $('#saveBtn').click(function(e) {
+                e.preventDefault();
+                $(this).html('Sending..');
+
+                $.ajax({
+                    data: $('#form_data').serialize(),
+                    url: "{{ route('PenggunaController.store') }}",
+                    type: "POST",
+                    dataType: 'json',
+                    success: function(data) {
+
+                        $('#form_data').trigger("reset");
+                        $('#ajaxModel').modal('hide');
+                        table.draw();
+
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                        $('#saveBtn').html('Save Changes');
+                    }
+                });
+            });
+
+            $('body').on('click', '.deleteItem', function() {
+
+                var data_id = $(this).data("id");
+                confirm("Are You sure want to delete !");
+
+                $.ajax({
+                    type: "DELETE",
+                    url: "{{ route('PenggunaController.index') }}" + '/' + data_id,
+                    success: function(data) {
+                        table.draw();
+                    },
+                    error: function(data) {
+                        console.log('Error:', data);
+                    }
+                });
             });
         });
     </script>
+
 
     <script>
         $(document).ready(function() {
             $('#tb_ktp').DataTable();
         });
     </script>
-
     <!-- modal untuk tambah data -->
     <div class="modal fade" id="tambah" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
