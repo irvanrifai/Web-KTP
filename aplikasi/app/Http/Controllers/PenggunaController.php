@@ -28,10 +28,10 @@ class PenggunaController extends Controller
             $data = pengguna::latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function ($row) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                ->addColumn('action', function ($data) {
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm" id="editItem">Edit</a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $row->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm" id="deleteItem">Delete</a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -65,25 +65,25 @@ class PenggunaController extends Controller
     public function store(StorepenggunaRequest $request)
     {
 
-        $validator = FacadesValidator::make($request->all(), [
-            'nama' => 'required|max:50|string',
-            'tgl_lahir' => 'required|date',
-            'alamat' => 'required|max:50',
-        ]);
+        // $validator = FacadesValidator::make($request->all(), [
+        //     'nama' => 'required|max:50|string',
+        //     'tgl_lahir' => 'required|date',
+        //     'alamat' => 'required|max:50',
+        // ]);
 
         // $validatedData['password'] = bcrypt($validatedData['password']);
         // $validatedData['user_id'] = auth()->user()->id;
 
-        if ($validator->fails()) {
-            return redirect('/PenggunaController')->withInput()->withErrors($validator)->with('failed_c', 'Add data pengguna unsuccessfull!');
-        } else {
-            pengguna::create($validator->validate());
-            return redirect('/PenggunaController')->with('success_c', 'Add data pengguna successfull!');
-        }
+        // if ($validator->fails()) {
+        //     return redirect('/PenggunaController')->withInput()->withErrors($validator)->with('failed_c', 'Add data pengguna unsuccessfull!');
+        // } else {
+        //     pengguna::create($validator->validate());
+        //     return redirect('/PenggunaController')->with('success_c', 'Add data pengguna successfull!');
+        // }
 
         pengguna::updateOrCreate(
             ['id' => $request->data_id],
-            ['nama' => $request->name, 'tgl_lahir' => $request->tgl_lahir, 'alamat' => $request->alamat]
+            ['nama' => $request->nama, 'tgl_lahir' => $request->tgl_lahir, 'alamat' => $request->alamat]
         );
         return response()->json(['success' => 'Data Pengguna Berhasil ditambah']);
     }
@@ -105,11 +105,14 @@ class PenggunaController extends Controller
      * @param  \App\Models\pengguna  $pengguna
      * @return \Illuminate\Http\Response
      */
-    public function edit(pengguna $pengguna)
+    public function edit(pengguna $pengguna, $id)
     {
-        return view('pengguna', [
-            'pengguna' => $pengguna
-        ]);
+        // return view('pengguna', [
+        //     'pengguna' => $pengguna
+        // ]);
+
+        $data = pengguna::find($id);
+        return response()->json($data);
     }
 
     /**
@@ -164,34 +167,14 @@ class PenggunaController extends Controller
     {
         $data = pengguna::latest()->get();
         return DataTables::of($data)
-            ->addColumn('aksi_e', function ($data) {
-                $btn_edit = '<a data-bs-toggle="modal" data-bs-target="#edit<?= $d ?>"><span
-            class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>';
-                return $btn_edit;
-            })
-            ->addColumn('aksi_d', function ($data) {
-                $btn_delete = '<a data-bs-toggle="modal" class="mx-1" data-bs-target="#hapus<?= $d ?>"><span class="badge bg-danger"><i
-                class="fa fa-trash"></i></span></a>';
-                return $btn_delete;
-            })
-            ->addColumn('aksi', function ($data) {
-                $btn = '<div class="d-flex">
-                <a data-bs-toggle="modal" data-bs-target="#edit<?= $d ?>"><span
-                        class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>
-                <a data-bs-toggle="modal" class="mx-1"
-                    data-bs-target="#hapus<?= $d ?>"><span class="badge bg-danger"><i
-                            class="fa fa-trash"></i></span></a>
-            </div>';
-                return $btn;
-            })
             ->addIndexColumn()
             ->addColumn('action', function ($data) {
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm editItem">Edit</a>';
+                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm" id="editItem">Edit</a>';
 
-                $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm deleteItem">Delete</a>';
+                $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm" id="deleteItem">Delete</a>';
                 return $btn;
             })
-            ->rawColumns(['aksi_e', 'aksi_d', 'aksi', 'action'])
+            ->rawColumns(['action'])
             ->make(true);
         // return DataTables::of($data)->toJson();
     }

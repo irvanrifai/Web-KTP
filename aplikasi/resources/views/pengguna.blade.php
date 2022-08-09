@@ -254,8 +254,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="bi bi-plus-square btn btn-primary" id="saveBtn"><i
-                                class="fa fa-plus"></i> </button>
+                        <button type="submit" class="bi bi-plus-square btn btn-primary" id="saveBtn"
+                            value="create"><i class="fa fa-plus"></i> </button>
                     </div>
                 </form>
             </div>
@@ -314,11 +314,11 @@
                 $('#ajaxModel').modal('show');
             });
 
-            $('body').on('click', '.editItem', function() {
+            $('body').on('click', '#editItem', function() {
                 var data_id = $(this).data('id');
-                $.get("{{ route('PenggunaController.index') }}" + '/' + data_id + '/edit', function(data) {
+                $.get("{{ url('PenggunaController') }}" + '/' + data_id + '/edit', function(data) {
                     $('#modelHeading').html("Edit Item");
-                    $('#saveBtn').html("edit-user");
+                    $('#saveBtn').html("Update");
                     $('#ajaxModel').modal('show');
                     $('#data_id').val(data.id);
                     $('#nama').val(data.nama);
@@ -333,7 +333,7 @@
 
                 $.ajax({
                     data: $('#form_data').serialize(),
-                    url: "{{ route('PenggunaController.store') }}",
+                    url: "{{ url('PenggunaController') }}",
                     type: "POST",
                     dataType: 'json',
                     success: function(data) {
@@ -350,14 +350,14 @@
                 });
             });
 
-            $('body').on('click', '.deleteItem', function() {
+            $('body').on('click', '#deleteItem', function() {
 
                 var data_id = $(this).data("id");
                 confirm("Are You sure want to delete !");
 
                 $.ajax({
                     type: "DELETE",
-                    url: "{{ route('PenggunaController.index') }}" + '/' + data_id,
+                    url: "{{ url('PenggunaController') }}" + '/' + data_id + '/delete',
                     success: function(data) {
                         table.draw();
                     },
