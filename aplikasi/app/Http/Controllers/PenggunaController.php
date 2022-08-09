@@ -8,8 +8,11 @@ use App\Models\pengguna;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorepenggunaRequest;
 use App\Http\Requests\UpdatepenggunaRequest;
+use Clockwork\Request\Request;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
+use Yajra\DataTables\DataTablesServiceProvider;
+use Yajra\DataTables\DataTables;
 
 class PenggunaController extends Controller
 {
@@ -18,13 +21,17 @@ class PenggunaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // if ($request) {
+        //     return DataTables::of(pengguna::latest()->get())->make(true)
+        // }
         return view('pengguna', [
-            "title" => "Web E-I KTP | Pengguna",
+            "title" => "Web Pengguna",
             "data" => pengguna::latest()->get(),
             "jumlahData" => pengguna::all()->count(),
-            "userLoggedIn" => User::all()->count()
+            "userLoggedIn" => User::all()->count(),
+            // "datatables" => DataTables::of(pengguna::latest()->get())->make(true),
         ]);
     }
 
@@ -131,5 +138,12 @@ class PenggunaController extends Controller
     {
         $jumlah = collect(pengguna::all());
         return $jumlah->count();
+    }
+
+    public function dataPengguna()
+    {
+        $data = pengguna::latest()->get();
+        return DataTables::of($data)->make(true);
+        // return DataTables::of($data)->toJson();
     }
 }

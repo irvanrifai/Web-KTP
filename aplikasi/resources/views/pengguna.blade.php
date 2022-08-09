@@ -177,8 +177,58 @@
                     </tbody>
                 </table>
             </div>
+            <hr>
+            <h4 class="mt-2">Using Datatable Laravel</h4>
+            <div class="table-responsive">
+                <table id="tb_pengguna" class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">No</th>
+                            <th scope="col">Nama</th>
+                            <th scope="col">Alamat</th>
+                            <th scope="col">Tgl Lahir</th>
+                            <th scope="col">Aksi</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('#tb_pengguna').DataTable({
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                // ajax: '{!! route('datatable.pengguna') !!}',
+                ajax: '{{ route('datatable.pengguna') }}',
+                // {
+                //     url: '{{ url('/PenggunaController') }}',
+                // },
+                columns: [{
+                        render: function(data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    {
+                        data: 'nama'
+                    },
+                    {
+                        data: 'alamat'
+                    },
+                    {
+                        data: 'tgl_lahir'
+                    },
+                    {
+                        "render": function(data, type, row) {
+                            return "<span class='badge bg-danger'>Aksi</span>"
+                        }
+                    }
+                ],
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function() {

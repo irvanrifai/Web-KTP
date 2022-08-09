@@ -27,7 +27,7 @@ Route::post('/login', [loginController::class, 'authenticate']);
 Route::post('/logout', [loginController::class, 'logout']);
 
 // darurat
-Route::get('/logout', [loginController::class, 'logout']);
+// Route::get('/logout', [loginController::class, 'logout']);
 
 Route::get('/registrasi', [registrasiController::class, 'index'])->middleware('guest');
 
@@ -36,3 +36,5 @@ Route::post('/registrasi', [registrasiController::class, 'store']);
 Route::resource('/PendudukController', PendudukController::class)->middleware('auth');
 
 Route::resource('/PenggunaController', PenggunaController::class)->middleware('auth');
+
+Route::get('/getDataPengguna', [PenggunaController::class, 'dataPengguna'])->name('datatable.pengguna');

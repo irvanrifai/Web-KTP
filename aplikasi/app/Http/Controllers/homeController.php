@@ -15,7 +15,7 @@ class homeController extends Controller
      */
     public function index()
     {
-        $query = penduduk::latest();
+        $query = pengguna::latest();
         if (request('cari')) {
             $query->where('nama', 'like', '%' . request('cari') . '%')
                 ->orWhere('nik', 'like', '%' . request('cari') . '%')
@@ -29,9 +29,9 @@ class homeController extends Controller
         }
         // dd(request('cari'));
         return view('home', [
-            "title" => "E-I KTP",
+            "title" => "Home",
             "data" => $query->paginate(5)->withQueryString(),
-            "jumlahData" => penduduk::all()->count(),
+            "jumlahData" => pengguna::all()->count(),
             "userLoggedIn" => pengguna::all()->count()
         ]);
     }
