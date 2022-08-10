@@ -24,14 +24,16 @@ class PenggunaController extends Controller
      */
     public function index(Request $request)
     {
+        // dd(pengguna::latest()->get());
         if ($request->ajax()) {
             $data = pengguna::latest()->get();
             return DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function ($data) {
-                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm" id="editItem">Edit</a>';
+                    $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit" id="editItem"><span class="badge bg-warning text-dark"><i class="fa fa-pencil"></i></span></a>';
 
-                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm" id="deleteItem">Delete</a>';
+                    $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="delete" id="deleteItem"><span class="badge bg-danger"><i
+                    class="fa fa-trash"></i></span></a>';
                     return $btn;
                 })
                 ->rawColumns(['action'])
@@ -147,14 +149,19 @@ class PenggunaController extends Controller
      * @param  \App\Models\pengguna  $pengguna
      * @return \Illuminate\Http\Response
      */
-    public function destroy(pengguna $pengguna, $id)
+    public function destroy(Request $request, pengguna $pengguna, $id)
     {
-        pengguna::destroy($pengguna->id, $id);
+        // pengguna::destroy($pengguna->id, $id);
 
         // return redirect('/PenggunaController')->with('success_d', 'Delete data pengguna successfull!');
 
-        // pengguna::find($id)->delete();
-        return response()->json(['success', 'Data pengguna berhasil dihapus']);
+        $data = pengguna::find($id)->delete();
+        // pengguna::where('id', $request->data_id)->delete();
+
+
+        // pengguna::where('data_id', $request->$id)->delete();
+        // return response()->json(['success', 'Data pengguna berhasil dihapus']);
+        return response()->json($data);
     }
 
     public function jumlahData()
@@ -163,19 +170,19 @@ class PenggunaController extends Controller
         return $jumlah->count();
     }
 
-    public function dataPengguna()
-    {
-        $data = pengguna::latest()->get();
-        return DataTables::of($data)
-            ->addIndexColumn()
-            ->addColumn('action', function ($data) {
-                $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm" id="editItem">Edit</a>';
+    // public function dataPengguna()
+    // {
+    //     $data = pengguna::latest()->get();
+    //     return DataTables::of($data)
+    //         ->addIndexColumn()
+    //         ->addColumn('action', function ($data) {
+    //             $btn = '<a href="javascript:void(0)" data-toggle="tooltip"  data_id="' . $data->id . '" data-original-title="Edit" class="edit btn btn-primary btn-sm" id="editItem">Edit</a>';
 
-                $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data-id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm" id="deleteItem">Delete</a>';
-                return $btn;
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-        // return DataTables::of($data)->toJson();
-    }
+    //             $btn = $btn . ' <a href="javascript:void(0)" data-toggle="tooltip"  data_id="' . $data->id . '" data-original-title="Delete" class="btn btn-danger btn-sm" id="deleteItem">Delete</a>';
+    //             return $btn;
+    //         })
+    //         ->rawColumns(['action'])
+    //         ->make(true);
+    //     // return DataTables::of($data)->toJson();
+    // }
 }

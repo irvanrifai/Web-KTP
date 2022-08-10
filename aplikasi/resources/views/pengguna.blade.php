@@ -133,7 +133,7 @@
     <div class="row mt-4">
         <div class="col">
             <h3>Data Pengguna</h3>
-            <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#tambah"><i
+            <button type="button" class="btn btn-primary my-3 btn-sm" data-bs-toggle="modal" data-bs-target="#tambah"><i
                     class="fa fa-plus"></i>
                 Tambah data
             </button>
@@ -179,7 +179,7 @@
             </div>
             <hr>
             <h4 class="mt-2">Using Datatable Laravel</h4>
-            <a type="button" href="javascript:void(0)" class="btn btn-primary my-3" id="createNewData"><i
+            <a type="button" href="javascript:void(0)" class="btn btn-primary my-3 btn-sm" id="createNewData"><i
                     class="fa fa-plus"></i>
                 Tambah data
             </a>
@@ -187,11 +187,10 @@
                 <table id="tb_pengguna" class="table">
                     <thead>
                         <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Tgl Lahir</th>
-                            {{-- <th scope="col">Aksi</th> --}}
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
                     </thead>
@@ -276,10 +275,9 @@
                 processing: true,
                 serverSide: true,
                 responsive: true,
-                ajax: '{{ route('datatable.pengguna') }}',
-                // {
-                //     url: '{{ url('/PenggunaController') }}',
-                // },
+                ajax: {
+                    url: '{{ url('/PenggunaController') }}',
+                },
                 columns: [{
                         render: function(data, type, row, meta) {
                             return meta.row + meta.settings._iDisplayStart + 1;
@@ -287,15 +285,18 @@
                     },
                     {
                         data: 'nama',
-                        name: 'nama'
+                        name: 'nama',
+                        title: 'Nama',
                     },
                     {
                         data: 'alamat',
-                        name: 'alamat'
+                        name: 'alamat',
+                        title: 'Alamat',
                     },
                     {
                         data: 'tgl_lahir',
-                        name: 'tgl_lahir'
+                        name: 'tgl_lahir',
+                        title: 'Tanggal Lahir',
                     },
                     {
                         data: 'action',
@@ -353,11 +354,11 @@
             $('body').on('click', '#deleteItem', function() {
 
                 var data_id = $(this).data("id");
-                confirm("Are You sure want to delete !");
+                confirm("Are You sure want to delete?");
 
                 $.ajax({
+                    url: "{{ url('PenggunaController') }}" + '/' + data_id,
                     type: "DELETE",
-                    url: "{{ url('PenggunaController') }}" + '/' + data_id + '/delete',
                     success: function(data) {
                         table.draw();
                     },

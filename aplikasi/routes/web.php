@@ -40,5 +40,6 @@ Route::resource('/PenggunaController', PenggunaController::class)->middleware('a
 Route::get('/getDataPengguna', [PenggunaController::class, 'index'])->name('datatable.pengguna');
 Route::post('/getDataPengguna', [PenggunaController::class, 'store']);
 Route::post('/getDataPengguna/edit', [PenggunaController::class, 'edit']);
-Route::post('/getDataPengguna/delete', [PenggunaController::class, 'destroy']);
+Route::delete('/getDataPenggunaDelete', [PenggunaController::class, 'destroy']);
+Route::post('/getDataPenggunaDelete', [PenggunaController::class, 'destroy']);
 // Route::post('/getDataPengguna', [PenggunaController::class, 'edit'])->name('datatable.pengguna');
