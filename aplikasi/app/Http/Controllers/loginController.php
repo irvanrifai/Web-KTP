@@ -32,7 +32,7 @@ class loginController extends Controller
             $request->session()->flash('success_login_a', 'Welcome, admin!');
 
             return redirect()->intended('/PenggunaController');
-            return redirect()->intended('/PendudukController');
+            // return redirect()->intended('/PendudukController');
         }
 
         return back()
