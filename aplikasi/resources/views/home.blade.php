@@ -44,11 +44,22 @@
 
     {{ $data->links() }}
 
-    {{-- <script>
-        $(document).ready(function () {
-            $('#tb_ktp').DataTable();
+    <script>
+        // $(document).ready(function () {
+        //     $('#tb_ktp').DataTable();
+        // });
+        $(document).ready(function() {
+            var table = $('#tb_ktp').DataTable();
+
+            $('#tb_ktp tbody').on('click', 'tr', function() {
+                $(this).toggleClass('selected');
+            });
+
+            $('#button').click(function() {
+                alert(table.rows('.selected').data().length + ' row(s) selected');
+            });
         });
-    </script> --}}
+    </script>
 
     {{-- modal untuk detail data --}}
     @foreach ($data as $d)

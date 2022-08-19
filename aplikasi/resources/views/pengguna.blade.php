@@ -373,7 +373,15 @@
 
     <script>
         $(document).ready(function() {
-            $('#tb_ktp').DataTable();
+            var table = $('#tb_pengguna').DataTable();
+
+            $('#tb_pengguna tbody').on('click', 'tr', function() {
+                $(this).toggleClass('selected');
+            });
+
+            $('#button').click(function() {
+                alert(table.rows('.selected').data().length + ' row(s) selected');
+            });
         });
     </script>
     <!-- modal untuk tambah data -->
