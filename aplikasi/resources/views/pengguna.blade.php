@@ -359,6 +359,10 @@
                 $.ajax({
                     url: "{{ url('PenggunaController') }}" + '/' + data_id,
                     type: "DELETE",
+                    data: {
+                            id: data_id,
+                            _token: '{{ csrf_token() }}'
+                        },
                     success: function(data) {
                         table.draw();
                     },

@@ -83,11 +83,11 @@ class PenggunaController extends Controller
         //     return redirect('/PenggunaController')->with('success_c', 'Add data pengguna successfull!');
         // }
 
-        pengguna::updateOrCreate(
+        $data = pengguna::updateOrCreate(
             ['id' => $request->data_id],
             ['nama' => $request->nama, 'tgl_lahir' => $request->tgl_lahir, 'alamat' => $request->alamat]
         );
-        return response()->json(['success' => 'Data Pengguna Berhasil ditambah']);
+        return response()->json($data);
     }
 
     /**
@@ -155,7 +155,7 @@ class PenggunaController extends Controller
 
         // return redirect('/PenggunaController')->with('success_d', 'Delete data pengguna successfull!');
 
-        $data = pengguna::find($id)->delete();
+        $data = pengguna::where('id', $id)->delete();
         // pengguna::where('id', $request->data_id)->delete();
 
 
